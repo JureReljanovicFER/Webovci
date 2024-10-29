@@ -3,7 +3,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
 @Entity
-public class ApartmentOwner {
+public class NormalUser {
     @Id
     Long id;
 
@@ -13,8 +13,7 @@ public class ApartmentOwner {
 
     String email;
 
-
-    public ApartmentOwner( String firstName, String lastName, String email) {
+    public NormalUser( String firstName, String lastName, String email) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;

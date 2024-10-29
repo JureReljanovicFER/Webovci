@@ -6,13 +6,13 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
 @Entity
-public class OwnerApartmentBuilding  {
+public class UserApartmentBuilding  {
     @Id
     Long id;
 
     @ManyToOne
     @JoinColumn(name = "apartment_owner_id")
-    ApartmentOwner apartmentOwner;
+    NormalUser apartmentOwner;
 
     @ManyToOne
     @JoinColumn(name = "apartment_building_id")
@@ -22,7 +22,7 @@ public class OwnerApartmentBuilding  {
     boolean isRepresentative;
 
 
-    public OwnerApartmentBuilding(ApartmentOwner apartmentOwner, ApartmentBuilding apartmentBuilding, boolean isRepresentative) {
+    public UserApartmentBuilding(NormalUser apartmentOwner, ApartmentBuilding apartmentBuilding, boolean isRepresentative) {
         this.apartmentOwner = apartmentOwner;
         this.apartmentBuilding = apartmentBuilding;
         this.isRepresentative = isRepresentative;
@@ -38,11 +38,11 @@ public class OwnerApartmentBuilding  {
         this.id = id;
     }
 
-    public ApartmentOwner getApartmentOwner() {
+    public NormalUser getApartmentOwner() {
         return this.apartmentOwner;
     }
 
-    public void setApartmentOwner(ApartmentOwner apartmentOwner) {
+    public void setApartmentOwner(NormalUser apartmentOwner) {
         this.apartmentOwner = apartmentOwner;
     }
 
