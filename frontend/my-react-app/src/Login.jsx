@@ -1,13 +1,15 @@
 import { useState } from "react";
 import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
+import logo from "/logoNav.png";
 import "./Login.css";
 
 function Login() {
   return (
     <>
       <div class="navbar">
-        <div>logo</div>
+        <div>
+          <img src={logo}></img>
+        </div>
         <a>Home</a>
         <a>Contact</a>
         <a>About us</a>
