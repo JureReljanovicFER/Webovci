@@ -3,7 +3,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
 @Entity
-public class NormalUser {
+public class AppUser {
     @Id
     Long id;
 
@@ -13,10 +13,13 @@ public class NormalUser {
 
     String email;
 
-    public NormalUser( String firstName, String lastName, String email) {
+    UserRole userRole;
+
+    public AppUser( String firstName, String lastName, String email, UserRole userRole) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
+        this.userRole = userRole;
     }
 
     public Long getId() {
@@ -50,6 +53,14 @@ public class NormalUser {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public UserRole getUserRole() {
+        return this.userRole;
+    }
         
+
+    public void setUserRole(UserRole userRole) {
+        this.userRole = userRole;
+    }
     
 }
