@@ -2,14 +2,14 @@ package hr.stanblog.stanblog.service.impl;
 
 import org.springframework.stereotype.Service;
 
-import hr.stanblog.stanblog.dto.AdminDto;
-import hr.stanblog.stanblog.service.AdminService;
+import hr.stanblog.stanblog.dto.UserDto;
+import hr.stanblog.stanblog.service.UserService;
 
 @Service
-public class AdminServiceImpl implements AdminService {
+public class UserServiceImpl implements UserService {
 
     @Override
-    public String authentificateAdmin(AdminDto adminDto) {
+    public String loginUser(UserDto userDto) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'authentificateAdmin'");
     }

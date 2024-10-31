@@ -1,12 +1,12 @@
 
 package hr.stanblog.stanblog.exceptions.individualExceptions;
 
-public class NoSuchAdminExistsException extends RuntimeException {
+public class NoSuchUserException extends RuntimeException {
     private String message;
 
-    public NoSuchAdminExistsException() {}
+    public NoSuchUserException() {}
 
-    public NoSuchAdminExistsException(String msg) {
+    public NoSuchUserException(String msg) {
         super(msg);
         this.message = msg;
     }
