@@ -3,6 +3,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
 @Entity
+@TABLE
 public class AppUser {
     @Id
     Long id;
