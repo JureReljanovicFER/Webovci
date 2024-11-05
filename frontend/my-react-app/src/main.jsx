@@ -7,11 +7,12 @@ import BuildingPage from "./buildingPage.jsx";
 import Buildings from "./buildings.jsx";
 import Discussions from "./Discussions.jsx";
 import DiscussionPage from "./DiscussionPage.jsx";
+import Home from "./Home.jsx"
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Login />,
+    element: <Home />,
     errorElement: <div>404 Not Found</div>,
   },
   {

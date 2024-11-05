@@ -5,9 +5,27 @@ const Navbar = () => {
     <div className="navbar">
       <img src={logo}></img>
       <div className="navbar_buttons">
-        <a>Home</a>
-        <a>Contact</a>
-        <a>About</a>
+        <a
+          onClick={() => {
+            window.location.href = "/";
+          }}
+        >
+          Home
+        </a>
+        <a
+          onClick={() => {
+            window.location.href = "/buildings";
+          }}
+        >
+          Buildings
+        </a>
+        <a
+          onClick={() => {
+            window.location.href = "/login";
+          }}
+        >
+          Log out
+        </a>
       </div>
     </div>
   );
