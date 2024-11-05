@@ -19,13 +19,7 @@ const Navbar = () => {
         >
           Buildings
         </a>
-        <a
-          onClick={() => {
-            window.location.href = "/login";
-          }}
-        >
-          Log out
-        </a>
+        <a>About</a>
       </div>
     </div>
   );

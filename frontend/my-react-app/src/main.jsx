@@ -1,40 +1,39 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import "./index.css";
+import "./style.css";
 import Login from "./Login.jsx";
 import BuildingPage from "./buildingPage.jsx";
 import Buildings from "./buildings.jsx";
 import Discussions from "./Discussions.jsx";
 import DiscussionPage from "./DiscussionPage.jsx";
-import Home from "./Home.jsx"
+import Home from "./Home.jsx";
 
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: "/",
     element: <Home />,
-    errorElement: <div>404 Not Found</div>,
+    errorElement: <h1>404 Not Found</h1>,
   },
   {
     path: "/login",
     element: <Login />,
-
   },
   {
     path: "/buildings/:buildingId",
-    element: <BuildingPage/>,
+    element: <BuildingPage />,
   },
   {
     path: "/buildings",
-    element: <Buildings/>,
+    element: <Buildings />,
   },
   {
     path: "buildings/:buildingId/discussions",
-    element: <Discussions/>
+    element: <Discussions />,
   },
   {
-      path: "buildings/:buildingId/discussions/:discussionId",
-      element: <DiscussionPage/>
+    path: "buildings/:buildingId/discussions/:discussionId",
+    element: <DiscussionPage />,
   },
 ]);
 

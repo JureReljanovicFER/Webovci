@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Navbar from "./components/Navbar";
-import "./Login.css";
+import "./style.css";
 
 function Login() {
   return (
