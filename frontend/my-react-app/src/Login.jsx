@@ -5,8 +5,8 @@ import "./Login.css";
 function Login() {
   return (
     <>
-        <Navbar/>
-    
+      <Navbar />
+
       <div className="body">
         <div id="login_form">
           <h1>You need to log in</h1>
