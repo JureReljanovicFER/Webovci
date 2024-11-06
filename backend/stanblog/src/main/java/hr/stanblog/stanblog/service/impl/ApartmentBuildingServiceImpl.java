@@ -4,6 +4,8 @@ import hr.stanblog.stanblog.dto.ApartmentBuildingDto;
 import hr.stanblog.stanblog.model.ApartmentBuilding;
 import hr.stanblog.stanblog.service.ApartmentBuildingService;
 import hr.stanblog.stanblog.dao.ApartmentBuildingRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 @Service
 public class ApartmentBuildingServiceImpl implements ApartmentBuildingService {
