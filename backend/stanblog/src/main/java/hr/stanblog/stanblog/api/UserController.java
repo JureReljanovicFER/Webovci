@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import hr.stanblog.stanblog.dto.UserDto;
 import hr.stanblog.stanblog.service.UserService;
 
-@RequestMapping("/api")
+@RequestMapping("/user")
 @RestController
 public class UserController {
     private UserService userService;

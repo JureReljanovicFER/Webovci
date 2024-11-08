@@ -11,19 +11,19 @@ public class UserApartmentBuilding  {
     Long id;
 
     @ManyToOne
-    @JoinColumn(name = "apartment_owner_id")
-    AppUser apartmentOwner;
+    @JoinColumn(name = "userId")
+    AppUser user;
 
     @ManyToOne
-    @JoinColumn(name = "apartment_building_id")
+    @JoinColumn(name = "apartmentBuildingId")
     ApartmentBuilding apartmentBuilding;
 
-    @Column(name = "is_representative")
+    @Column(name = "isRepresentative")
     boolean isRepresentative;
 
 
-    public UserApartmentBuilding(AppUser apartmentOwner, ApartmentBuilding apartmentBuilding, boolean isRepresentative) {
-        this.apartmentOwner = apartmentOwner;
+    public UserApartmentBuilding(AppUser user, ApartmentBuilding apartmentBuilding, boolean isRepresentative) {
+        this.user = user;
         this.apartmentBuilding = apartmentBuilding;
         this.isRepresentative = isRepresentative;
     }
@@ -36,12 +36,12 @@ public class UserApartmentBuilding  {
         this.id = id;
     }
 
-    public AppUser getApartmentOwner() {
-        return this.apartmentOwner;
+    public AppUser getUser() {
+        return this.user;
     }
 
-    public void setApartmentOwner(AppUser apartmentOwner) {
-        this.apartmentOwner = apartmentOwner;
+    public void setUser(AppUser user) {
+        this.user = user;
     }
 
     public ApartmentBuilding getApartmentBuilding() {

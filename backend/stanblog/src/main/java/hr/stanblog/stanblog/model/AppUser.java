@@ -1,9 +1,10 @@
 package hr.stanblog.stanblog.model;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
-@TABLE
+@Table
 public class AppUser {
     @Id
     Long id;
