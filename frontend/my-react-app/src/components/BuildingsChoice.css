@@ -20,15 +20,18 @@ body{
     width: 100%;
     overflow-x: hidden;
     overflow-y: hidden;
+   background-color: #FAF9F6;
 
 }
 .zgrada{
     height: 39vh;
     width: auto;
-    border: 5px solid black;
+    border: 2px solid black;
     border-radius: 5%;
     padding: 5%;
     overflow: hidden;
+    background-color: white;
+    z-index: 0;
 }
 .zgrada h1{
     font-size: 3em;
@@ -45,4 +48,9 @@ body{
 }
 .odabirZgradeLink:hover{
     color: black;
+}
+.linijaDodat{
+    margin-left: -5%; 
+    margin-right: -5%; 
+    width: calc(100% + 10%); 
 }

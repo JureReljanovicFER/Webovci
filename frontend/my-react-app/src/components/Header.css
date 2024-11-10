@@ -8,6 +8,7 @@
     box-shadow: 0px 2px;
     height: 10vh;
     background-color: white;
+    z-index: 1;
   }
   .navbar img {
     width: 10%;

@@ -1,10 +1,16 @@
 import React from 'react'
 import { useLocation } from 'react-router-dom';
+import { useState } from 'react';
 import Header from './Header'
 import './Building.css'
 const Building = () => {
   const location = useLocation();
   const { data } = location.state || {};
+
+  const [pokaziDrugi, setpokaziDrugi]= useState(false);
+  const toggleDrugi=()=>{
+    setpokaziDrugi(!pokaziDrugi);
+  }
   return (
     <>
     <Header />
@@ -13,12 +19,22 @@ const Building = () => {
         <p>Opis zgrade</p>
         <hr></hr>
         <p>{data.adress}</p>
+        <div className={`additional-paragraphs ${pokaziDrugi ? 'show' : ''}`}>
         <p>{data.city} , {data.zipCode}</p>
-        <p>ukupno članova</p>
-        <button>Pokaži više</button>
+        <p>ukupan broj članova</p>
+        </div>
+        <button onClick={toggleDrugi}>
+          {pokaziDrugi ? "Sakrij" :"Pokaži više"}
+          </button>
       </div>
-      <div className='diskusije'>NALAZIS SE U DISKUSIJ ZGRADE {data.id}</div>
-      <div className='members:list'></div>
+      <div className='diskusije'>
+        <p>NALAZIS SE U DISKUSIJ ZGRADE {data.id}</p>
+        <hr></hr>
+        </div>
+      <div className='members_list'>
+        <p>popis članova zgrade</p>
+        <hr></hr>
+      </div>
     </div>
     </>
   )
