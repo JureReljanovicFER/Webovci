@@ -1,5 +1,7 @@
 package hr.stanblog.stanblog.api;
 
+import hr.stanblog.stanblog.exceptions.individualExceptions.UserAlreadyExistsException;
+import hr.stanblog.stanblog.exceptions.individualExceptions.UserIsAlreadyInThatBuildingException;
 import hr.stanblog.stanblog.model.AppUser;
 import hr.stanblog.stanblog.model.UserApartmentBuilding;
 import hr.stanblog.stanblog.service.EmailService;
@@ -24,16 +26,26 @@ import org.springframework.web.bind.annotation.RestController;
         }
         @RequestMapping("/addNew")
         @PostMapping
-        public void addNewUser(@RequestBody AppUser appUser) {
-            userService.addNewUser(appUser);
+        public String addNewUser(@RequestBody AppUser appUser) {
+            try {
+                userService.addNewUser(appUser);
+                return "Uspješna registracija";
+            } catch (UserAlreadyExistsException e) {
+
+                return "Korisnik s emailom: " + appUser.getEmail() + " već postoji";
+            }
         }
         @RequestMapping("/addUserBuilding")
         @PostMapping
-        public void addUserToABuilding(@RequestBody UserApartmentBuilding userApartmentBuilding) {
+        public String addUserToABuilding(@RequestBody UserApartmentBuilding userApartmentBuilding) {
 
 
-
-            userService.addUserApartmentBuilding(userApartmentBuilding);
+            try {
+                userService.addUserApartmentBuilding(userApartmentBuilding);
+                return "Korisnik uspješno dodan u zgradu";
+            } catch (UserIsAlreadyInThatBuildingException e) {
+                return "Korisnik s emailom: " + userApartmentBuilding.getUser().getEmail() + " je već u zgradi s Id-om: " + userApartmentBuilding.getApartmentBuilding().getId();
+            }
 
             /**
              * Primjer dodavanja usera u zgradu

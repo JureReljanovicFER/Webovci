@@ -4,8 +4,11 @@ import hr.stanblog.stanblog.dao.ApartmentBuildingRepository;
 import hr.stanblog.stanblog.dao.UserApartmentBuildingRepository;
 import hr.stanblog.stanblog.dao.UserRepository;
 import hr.stanblog.stanblog.exceptions.individualExceptions.NoSuchBuildingException;
+import hr.stanblog.stanblog.exceptions.individualExceptions.UserAlreadyExistsException;
+import hr.stanblog.stanblog.exceptions.individualExceptions.UserIsAlreadyInThatBuildingException;
 import hr.stanblog.stanblog.model.AppUser;
 import hr.stanblog.stanblog.model.UserApartmentBuilding;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,28 +30,36 @@ public class UserService {
         this.emailService = emailService;
     }
 
-    public boolean addNewUser(AppUser appUser) {
+    public boolean addNewUser(AppUser appUser)throws UserAlreadyExistsException {
 
         System.out.println(appUser.toString());
-
-
+            if(!userRepository.findByEmail(appUser.getEmail()).isEmpty()) {
+                throw new UserAlreadyExistsException("User with email: " + appUser.getEmail() + " already exists");
+            }
         userRepository.save(appUser);
-        emailService.sendEmail(appUser.getEmail(),"Usješna Registracija","Uspješno ste registrirani u aplikaciju stanblog");
+        emailService.sendEmail(appUser.getEmail(), "Usješna Registracija", "Poštovani korisniče" + appUser.getLastName() + "\nUspješno ste registrirani u aplikaciju stanblog");
 
         return true;
     }
 
 
-    public boolean addUserApartmentBuilding(UserApartmentBuilding userApartmentBuilding) {
+    public boolean addUserApartmentBuilding(UserApartmentBuilding userApartmentBuilding) throws UserIsAlreadyInThatBuildingException {
 
         if(apartmentBuildingRepository.findById(userApartmentBuilding.getApartmentBuilding().getId()).isEmpty()) throw new NoSuchBuildingException("Building with id: "+userApartmentBuilding.getApartmentBuilding().getId()+" does not exist" );
         List<AppUser> list;
         list=userRepository.findByEmail(userApartmentBuilding.getUser().getEmail());
         if (list.isEmpty()) {
-            addNewUser(new AppUser(userApartmentBuilding.getUser().getFirstName(), userApartmentBuilding.getUser().getLastName(), userApartmentBuilding.getUser().getEmail(), userApartmentBuilding.getUser().getUserRole()));
+            try {
+                addNewUser(new AppUser(userApartmentBuilding.getUser().getFirstName(), userApartmentBuilding.getUser().getLastName(), userApartmentBuilding.getUser().getEmail(), userApartmentBuilding.getUser().getUserRole()));
+            } catch (UserAlreadyExistsException e) {
+                throw new RuntimeException();  //do ovoga ne bi nikad trebalo doci zbog logike koda
+            }
             list=userRepository.findByEmail(userApartmentBuilding.getUser().getEmail());
         }
             userApartmentBuilding.getUser().setId(list.get(0).getId());
+            if(userApartmentBuildingRepository.existsByUserIdAndAndApartmentBuildingId(userApartmentBuilding.getUser().getId(),userApartmentBuilding.getApartmentBuilding().getId()))
+                throw new UserIsAlreadyInThatBuildingException("User with email: " + userApartmentBuilding.getUser().getEmail() + " is already in a building with id:" + userApartmentBuilding.getApartmentBuilding().getId());
+
 
 
 
