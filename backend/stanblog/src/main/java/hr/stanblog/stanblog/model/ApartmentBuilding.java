@@ -23,6 +23,10 @@ public class ApartmentBuilding {
         this.numberOfIndividualApartments = numberOfIndividualApartments;
     }
 
+    public ApartmentBuilding() {
+
+    }
+
 
     public Long getId() {
         return this.id;

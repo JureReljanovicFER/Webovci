@@ -1,6 +1,6 @@
 package hr.stanblog.stanblog.exceptions;
 
-public public class ErrorResponse {
+ public class ErrorResponse {
 
     private int statusCode;
     private String message;

@@ -28,6 +28,10 @@ public class UserApartmentBuilding  {
         this.isRepresentative = isRepresentative;
     }
 
+    public UserApartmentBuilding() {
+
+    }
+
     public Long getId() {
         return this.id;
     }
