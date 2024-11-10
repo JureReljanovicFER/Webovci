@@ -3,9 +3,10 @@ import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./style.css";
 import Login from "./Login.jsx";
-import BuildingPage from "./buildingPage.jsx";
-import Buildings from "./buildings.jsx";
+
+import Buildings from "./components/Buildings.jsx";
 import Discussions from "./Discussions.jsx";
+import Building from './components/Building';
 import DiscussionPage from "./DiscussionPage.jsx";
 import Home from "./Home.jsx";
 
@@ -21,7 +22,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/buildings/:buildingId",
-    element: <BuildingPage />,
+    element: <Building/>,
   },
   {
     path: "/buildings",
@@ -39,7 +40,7 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    {/* <Login /> */}
+    
     <RouterProvider router={router} />
   </StrictMode>
 );

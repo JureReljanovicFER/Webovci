@@ -1,0 +1,53 @@
+{
+    "ApartmentBuildings":
+    [ 
+        {
+            "id":1,
+            "adress":"teslina 1",
+            "zipCode":"10000",
+            "city":"Zagreb"
+        },
+        {
+            "id":2,
+            "adress":"teslina 2",
+            "zipCode":"10000",
+            "city":"Zagreb"
+        },
+        {
+            "id":3,
+            "adress":"teslina 6",
+            "zipCode":"10000",
+            "city":"Zagreb"
+        },
+        {
+            "id":4,
+            "adress":"teslina 1",
+            "zipCode":"10000",
+            "city":"Zagreb"
+        },
+        {
+            "id":5,
+            "adress":"teslina 1",
+            "zipCode":"10000",
+            "city":"Zagreb"
+        },
+        {
+            "id":6,
+            "adress":"teslina 2",
+            "zipCode":"10000",
+            "city":"Zagreb"
+        },
+        {
+            "id":7,
+            "adress":"teslina 3",
+            "zipCode":"10000",
+            "city":"Zagreb"
+        },
+        {
+            "id":8,
+            "adress":"teslina 1",
+            "zipCode":"10000",
+            "city":"Zagreb"
+        }
+    ]
+}

@@ -1,0 +1,48 @@
+#root{
+    width: 100%;
+    max-width: 100%;
+    margin:0 0;
+    padding: 0rem;
+    text-align: center;
+}
+body{
+    margin: 0;
+    display: flex;
+    place-items: center;
+    min-width: 0px;
+    min-height: 0vh;
+    width: 100%;
+}
+.odabirZgrade{
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    row-gap: 1vw;
+    width: 100%;
+    overflow-x: hidden;
+    overflow-y: hidden;
+
+}
+.zgrada{
+    height: 39vh;
+    width: auto;
+    border: 5px solid black;
+    border-radius: 5%;
+    padding: 5%;
+    overflow: hidden;
+}
+.zgrada h1{
+    font-size: 3em;
+    text-decoration: none;
+    
+}
+.zgrada:hover{
+    background-color: lightgrey;
+}
+.odabirZgradeLink{
+    margin: 2vh 2vw 2vh 2vw;
+    color: black;
+    text-decoration:none;
+}
+.odabirZgradeLink:hover{
+    color: black;
+}
