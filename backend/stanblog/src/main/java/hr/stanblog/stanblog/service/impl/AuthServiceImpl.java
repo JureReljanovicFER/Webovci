@@ -3,10 +3,10 @@ package hr.stanblog.stanblog.service.impl;
 import org.springframework.stereotype.Service;
 
 import hr.stanblog.stanblog.dto.UserDto;
-import hr.stanblog.stanblog.service.UserService;
+import hr.stanblog.stanblog.service.AuthService;
 
 @Service
-public class UserServiceImpl implements UserService {
+public class AuthServiceImpl implements AuthService {
 
     @Override
     public String loginUser(UserDto userDto) {

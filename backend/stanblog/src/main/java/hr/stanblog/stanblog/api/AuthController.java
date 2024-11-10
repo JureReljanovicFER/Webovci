@@ -10,15 +10,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import hr.stanblog.stanblog.dto.UserDto;
-import hr.stanblog.stanblog.service.UserService;
+import hr.stanblog.stanblog.service.AuthService;
 
-@RequestMapping("/user")
+@RequestMapping("/auth")
 @RestController
-public class UserController {
-    private UserService userService;
+public class AuthController {
+    private AuthService userService;
 
     @Autowired
-    public UserController(UserService userService) {
+    public AuthController(AuthService userService) {
         this.userService = userService;
     }
     

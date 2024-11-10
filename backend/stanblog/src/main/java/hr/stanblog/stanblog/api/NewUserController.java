@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 
     @RestController
+    @RequestMapping("/user")
     public class NewUserController {
         private final NewUserService newUserService;
         private final EmailService emailService;

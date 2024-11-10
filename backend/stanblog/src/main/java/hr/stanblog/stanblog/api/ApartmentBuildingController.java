@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/apartment-buildings")
+@RequestMapping("/apartment-buildings")
 public class ApartmentBuildingController {
     private final ApartmentBuildingService apartmentBuildingService;
 
@@ -18,7 +18,7 @@ public class ApartmentBuildingController {
         this.apartmentBuildingService = apartmentBuildingService;
     }
 
-    @PostMapping
+    @PostMapping("/new")
     public ResponseEntity<ApartmentBuilding> createApartmentBuilding(@RequestBody ApartmentBuildingDto apartmentBuildingDto){
         try {
             ApartmentBuilding apartmentBuilding = apartmentBuildingService.saveApartmentBuilding(apartmentBuildingDto);

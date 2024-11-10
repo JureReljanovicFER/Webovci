@@ -1,10 +1,13 @@
 package hr.stanblog.stanblog.model;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
 public class ApartmentBuilding {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     Long id;
 
     String address;
