@@ -4,5 +4,8 @@ import org.springframework.stereotype.Repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import hr.stanblog.stanblog.model.ApartmentBuilding;
 
+import java.util.List;
+
 public interface ApartmentBuildingRepository extends JpaRepository<ApartmentBuilding, Long>{
+
 }
