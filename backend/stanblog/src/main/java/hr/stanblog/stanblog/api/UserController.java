@@ -63,13 +63,9 @@ import org.springframework.web.bind.annotation.RestController;
                         /**
              * Primjer dodavanja usera u zgradu
              * {
-             *   "user": {
-             *     "email": "ivoivic@gmail.com",
-             *   },
-             *   "apartmentBuilding": {
-             *     "id": 1
-             *   },
-             *   "isRepresentative": true
+             *     "userEMail": "ivoivic@gmail.com",
+             *     "buildingID": 1
+             *      "isRepresentative": true
              * }
              *
              *
