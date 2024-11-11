@@ -39,7 +39,7 @@ public class UserService {
                 throw new UserAlreadyExistsException("User with email: " + appUser.getEmail() + " already exists");
             }
         userRepository.save(appUser);
-        emailService.sendEmail(appUser.getEmail(), "Usješna Registracija", "Poštovani korisniče" + appUser.getLastName() + "\nUspješno ste registrirani u aplikaciju stanblog");
+        //emailService.sendEmail(appUser.getEmail(), "Usješna Registracija", "Poštovani korisniče" + appUser.getLastName() + "\nUspješno ste registrirani u aplikaciju stanblog");
 
         return true;
     }

@@ -1,9 +1,11 @@
 package hr.stanblog.stanblog.api;
 
+import hr.stanblog.stanblog.dto.UserApartmentBuildingDto;
 import hr.stanblog.stanblog.exceptions.individualExceptions.NoSuchBuildingException;
 import hr.stanblog.stanblog.exceptions.individualExceptions.NoSuchUserException;
 import hr.stanblog.stanblog.exceptions.individualExceptions.UserAlreadyExistsException;
 import hr.stanblog.stanblog.exceptions.individualExceptions.UserIsAlreadyInThatBuildingException;
+import hr.stanblog.stanblog.model.ApartmentBuilding;
 import hr.stanblog.stanblog.model.AppUser;
 import hr.stanblog.stanblog.model.UserApartmentBuilding;
 import hr.stanblog.stanblog.service.EmailService;
@@ -39,8 +41,12 @@ import org.springframework.web.bind.annotation.RestController;
         }
         @RequestMapping("/addUserBuilding")
         @PostMapping
-        public String addUserToABuilding(@RequestBody UserApartmentBuilding userApartmentBuilding) {
-
+        public String addUserToABuilding(@RequestBody UserApartmentBuildingDto userApartmentBuildingDto) {
+            System.err.println(userApartmentBuildingDto.isRepresentative());
+            UserApartmentBuilding userApartmentBuilding = new UserApartmentBuilding(new AppUser(), new ApartmentBuilding(), userApartmentBuildingDto.isRepresentative());
+            userApartmentBuilding.getUser().setEmail(userApartmentBuildingDto.getUserEMail());
+            userApartmentBuilding.getApartmentBuilding().setId(userApartmentBuildingDto.getBuildingID());
+            userApartmentBuilding.setIsRepresentative(userApartmentBuildingDto.isRepresentative());
 
             try {
                 userService.addUserApartmentBuilding(userApartmentBuilding);
