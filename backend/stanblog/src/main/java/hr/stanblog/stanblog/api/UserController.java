@@ -1,5 +1,7 @@
 package hr.stanblog.stanblog.api;
 
+import hr.stanblog.stanblog.exceptions.individualExceptions.NoSuchBuildingException;
+import hr.stanblog.stanblog.exceptions.individualExceptions.NoSuchUserException;
 import hr.stanblog.stanblog.exceptions.individualExceptions.UserAlreadyExistsException;
 import hr.stanblog.stanblog.exceptions.individualExceptions.UserIsAlreadyInThatBuildingException;
 import hr.stanblog.stanblog.model.AppUser;
@@ -44,8 +46,14 @@ import org.springframework.web.bind.annotation.RestController;
                 userService.addUserApartmentBuilding(userApartmentBuilding);
                 return "Korisnik uspješno dodan u zgradu";
             } catch (UserIsAlreadyInThatBuildingException e) {
+
                 return "Korisnik s emailom: " + userApartmentBuilding.getUser().getEmail() + " je već u zgradi s Id-om: " + userApartmentBuilding.getApartmentBuilding().getId();
+            } catch (NoSuchUserException e2) {
+                return "Korisnik s emailom: " + userApartmentBuilding.getUser().getEmail() + " ne postoji";
+            } catch (NoSuchBuildingException e3) {
+                return "Zgrada s Id-om: "+userApartmentBuilding.getApartmentBuilding().getId()+ " ne postoji";
             }
+
 
             /**
              * Primjer dodavanja usera u zgradu
@@ -55,6 +63,37 @@ import org.springframework.web.bind.annotation.RestController;
              *     "lastName": "ivic",
              *     "email": "ivoivic@gmail.com",
              *     "userRole": "NORMAL_USER"
+             *   },
+             *   "apartmentBuilding": {
+             *     "id": 1
+             *   },
+             *   "isRepresentative": true
+             * }
+             *
+             *
+             */
+
+        }
+
+        @RequestMapping("/addNewUserBuilding")
+        @PostMapping
+        public String addNewUserToABuilding(@RequestBody UserApartmentBuilding userApartmentBuilding) {
+
+
+            try {
+                userService.addNewUserApartmentBuilding(userApartmentBuilding);
+                return "Korisnik uspješno dodan u zgradu";
+            } catch (UserAlreadyExistsException e) {
+                return "Korisnik s emailom: " + userApartmentBuilding.getUser().getEmail() + " već postoji";
+            } catch (NoSuchBuildingException e2) {
+                return "Zgrada s Id-om: "+userApartmentBuilding.getApartmentBuilding().getId()+ " ne postoji";
+            }
+
+            /**
+             * Primjer dodavanja usera u zgradu
+             * {
+             *   "user": {
+             *     "email": "ivoivic@gmail.com",
              *   },
              *   "apartmentBuilding": {
              *     "id": 1

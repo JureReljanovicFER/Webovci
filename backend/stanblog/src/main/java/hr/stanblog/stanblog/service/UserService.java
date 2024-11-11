@@ -4,6 +4,7 @@ import hr.stanblog.stanblog.dao.ApartmentBuildingRepository;
 import hr.stanblog.stanblog.dao.UserApartmentBuildingRepository;
 import hr.stanblog.stanblog.dao.UserRepository;
 import hr.stanblog.stanblog.exceptions.individualExceptions.NoSuchBuildingException;
+import hr.stanblog.stanblog.exceptions.individualExceptions.NoSuchUserException;
 import hr.stanblog.stanblog.exceptions.individualExceptions.UserAlreadyExistsException;
 import hr.stanblog.stanblog.exceptions.individualExceptions.UserIsAlreadyInThatBuildingException;
 import hr.stanblog.stanblog.model.AppUser;
@@ -12,6 +13,7 @@ import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -41,27 +43,34 @@ public class UserService {
 
         return true;
     }
-
-
-    public boolean addUserApartmentBuilding(UserApartmentBuilding userApartmentBuilding) throws UserIsAlreadyInThatBuildingException {
-
+    public boolean addUserApartmentBuilding(UserApartmentBuilding userApartmentBuilding) throws UserIsAlreadyInThatBuildingException,NoSuchUserException {
         if(apartmentBuildingRepository.findById(userApartmentBuilding.getApartmentBuilding().getId()).isEmpty()) throw new NoSuchBuildingException("Building with id: "+userApartmentBuilding.getApartmentBuilding().getId()+" does not exist" );
         List<AppUser> list;
-        list=userRepository.findByEmail(userApartmentBuilding.getUser().getEmail());
-        if (list.isEmpty()) {
+        list = userRepository.findByEmail(userApartmentBuilding.getUser().getEmail());
+        if(list.isEmpty()) throw new NoSuchUserException("This user does not exist");
+        AppUser appUser = list.get(0);
+        userApartmentBuilding.setUser(appUser);
+        if(userApartmentBuildingRepository.existsByUserIdAndAndApartmentBuildingId(userApartmentBuilding.getUser().getId(),userApartmentBuilding.getApartmentBuilding().getId()))
+            throw new UserIsAlreadyInThatBuildingException("User with email: " + userApartmentBuilding.getUser().getEmail() + " is already in a building with id:" + userApartmentBuilding.getApartmentBuilding().getId());
+        userApartmentBuildingRepository.save(userApartmentBuilding);
+
+
+        return true;
+
+    }
+
+    public boolean addNewUserApartmentBuilding(UserApartmentBuilding userApartmentBuilding) throws UserAlreadyExistsException, NoSuchBuildingException {
+
+        if(apartmentBuildingRepository.findById(userApartmentBuilding.getApartmentBuilding().getId()).isEmpty()) throw new NoSuchBuildingException("Building with id: "+userApartmentBuilding.getApartmentBuilding().getId()+" does not exist" );
+        
             try {
                 addNewUser(new AppUser(userApartmentBuilding.getUser().getFirstName(), userApartmentBuilding.getUser().getLastName(), userApartmentBuilding.getUser().getEmail(), userApartmentBuilding.getUser().getUserRole()));
             } catch (UserAlreadyExistsException e) {
-                throw new RuntimeException();  //do ovoga ne bi nikad trebalo doci zbog logike koda
+                throw e;
             }
-            list=userRepository.findByEmail(userApartmentBuilding.getUser().getEmail());
-        }
-            userApartmentBuilding.getUser().setId(list.get(0).getId());
-            if(userApartmentBuildingRepository.existsByUserIdAndAndApartmentBuildingId(userApartmentBuilding.getUser().getId(),userApartmentBuilding.getApartmentBuilding().getId()))
-                throw new UserIsAlreadyInThatBuildingException("User with email: " + userApartmentBuilding.getUser().getEmail() + " is already in a building with id:" + userApartmentBuilding.getApartmentBuilding().getId());
+        List<AppUser> list = userRepository.findByEmail(userApartmentBuilding.getUser().getEmail());
 
-
-
+        userApartmentBuilding.setUser(list.get(0));
 
         userApartmentBuildingRepository.save(userApartmentBuilding);
 
@@ -71,4 +80,12 @@ public class UserService {
 
 
 
-}
+
+
+
+
+
+
+
+
+    }
