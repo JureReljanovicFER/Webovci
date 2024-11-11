@@ -60,15 +60,11 @@ import org.springframework.web.bind.annotation.RestController;
                 return "Zgrada s Id-om: "+userApartmentBuilding.getApartmentBuilding().getId()+ " ne postoji";
             }
 
-
-            /**
+                        /**
              * Primjer dodavanja usera u zgradu
              * {
              *   "user": {
-             *     "firstName": "ivo",
-             *     "lastName": "ivic",
              *     "email": "ivoivic@gmail.com",
-             *     "userRole": "NORMAL_USER"
              *   },
              *   "apartmentBuilding": {
              *     "id": 1
@@ -78,6 +74,7 @@ import org.springframework.web.bind.annotation.RestController;
              *
              *
              */
+
 
         }
 
@@ -95,11 +92,15 @@ import org.springframework.web.bind.annotation.RestController;
                 return "Zgrada s Id-om: "+userApartmentBuilding.getApartmentBuilding().getId()+ " ne postoji";
             }
 
+
             /**
              * Primjer dodavanja usera u zgradu
              * {
              *   "user": {
+             *     "firstName": "ivo",
+             *     "lastName": "ivic",
              *     "email": "ivoivic@gmail.com",
+             *     "userRole": "NORMAL_USER"
              *   },
              *   "apartmentBuilding": {
              *     "id": 1
