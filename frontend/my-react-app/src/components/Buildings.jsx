@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 
 import BuildingsChoice from "./BuildingsChoice";
-import Header from "./Header";
 const Buildings = () => {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
