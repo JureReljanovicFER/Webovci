@@ -6,41 +6,47 @@ import Login from "./Login.jsx";
 
 import Buildings from "./components/Buildings.jsx";
 import Discussions from "./Discussions.jsx";
-import Building from './components/Building';
+import Building from "./components/Building";
 import DiscussionPage from "./DiscussionPage.jsx";
 import Home from "./Home.jsx";
+import Layout from "./UserLayout.jsx";
 
 const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Home />,
-    errorElement: <h1>404 Not Found</h1>,
-  },
-  {
-    path: "/login",
-    element: <Login />,
-  },
-  {
-    path: "/buildings/:buildingId",
-    element: <Building/>,
-  },
-  {
-    path: "/buildings",
-    element: <Buildings />,
-  },
-  {
-    path: "buildings/:buildingId/discussions",
-    element: <Discussions />,
-  },
-  {
-    path: "buildings/:buildingId/discussions/:discussionId",
-    element: <DiscussionPage />,
-  },
+    {
+        path: "/:userid",
+        element: <Layout />,
+        errorElement: <h1>404 Not Found</h1>,
+        children: [
+            {
+                index: true,
+                element: <Home />,
+            },
+            {
+                path: "buildings",
+                element: <Buildings />,
+            },
+            {
+                path: "buildings/:buildingId",
+                element: <Building />,
+            },
+            {
+                path: "buildings/:buildingId/discussions",
+                element: <Discussions />,
+            },
+            {
+                path: "buildings/:buildingId/:discussions/:discussionId",
+                element: <DiscussionPage />,
+            },
+        ],
+    },
+    {
+        path: "/login",
+        element: <Login />,
+    },
 ]);
 
 createRoot(document.getElementById("root")).render(
-  <StrictMode>
-    
-    <RouterProvider router={router} />
-  </StrictMode>
+    <StrictMode>
+        <RouterProvider router={router} />
+    </StrictMode>
 );

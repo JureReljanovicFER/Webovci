@@ -1,22 +1,21 @@
-import React from 'react'
+import { useNavigate } from "react-router-dom";
 const BuildingsHeader = () => {
-  const shoot = () => {
-    let odabir=window.confirm("Jeste li sigurni da se želite log-outat");
-    if(odabir){
-      window.location.href=`/login`
-    }
-    else{}
-  }
-  
-  return (
-        
-    <div className="header" >
-      <h1>StanBlog</h1>
-      <button onClick={shoot} className='botun'>
-        Odjavi se
-      </button>
-    </div>
-  )
-}
+    const navigate = useNavigate();
+    const shoot = () => {
+        let odabir = window.confirm("Jeste li sigurni da se želite log-outat");
+        if (odabir) {
+            navigate("/login");
+        }
+    };
 
-export default BuildingsHeader
+    return (
+        <div className="header">
+            <h1>StanBlog</h1>
+            <button onClick={shoot} className="botun">
+                Odjavi se
+            </button>
+        </div>
+    );
+};
+
+export default BuildingsHeader;
