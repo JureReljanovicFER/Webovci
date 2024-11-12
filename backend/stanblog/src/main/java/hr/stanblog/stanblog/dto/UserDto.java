@@ -1,7 +1,6 @@
 package hr.stanblog.stanblog.dto;
 
 import hr.stanblog.stanblog.model.UserRole;
-import java.util.Objects;
 
 public class UserDto {
 

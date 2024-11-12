@@ -1,11 +1,12 @@
 package hr.stanblog.stanblog.model;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
 
 @Entity
-@TABLE
+@Table
 public class AppUser {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     Long id;
 
     String firstName;
@@ -22,6 +23,11 @@ public class AppUser {
         this.email = email;
         this.userRole = userRole;
     }
+
+    public AppUser() {
+
+    }
+
 
     public Long getId() {
         return this.id;
@@ -63,5 +69,10 @@ public class AppUser {
     public void setUserRole(UserRole userRole) {
         this.userRole = userRole;
     }
-    
+
+
+    @Override
+    public String toString() {
+       return ("name: " + this.firstName + "\n" + "prezime: " + this.lastName + "\n" + "email: " + this.email + "\n" + "user role: " + this.userRole);
+    }
 }
