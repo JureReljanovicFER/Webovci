@@ -77,7 +77,10 @@ public class UserService {
         return true;
     }
 
-
+    public boolean isUserAdmin(Long userId){
+        AppUser user = userRepository.findByUserId(userId);
+        return user != null && "ADMIN".equals(user.getUserRole().toString());
+    }
 
 
 

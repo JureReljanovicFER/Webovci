@@ -7,6 +7,8 @@ import hr.stanblog.stanblog.dao.ApartmentBuildingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ApartmentBuildingServiceImpl implements ApartmentBuildingService {
     private final ApartmentBuildingRepository apartmentBuildingRepository;
@@ -25,5 +27,10 @@ public class ApartmentBuildingServiceImpl implements ApartmentBuildingService {
                 apartmentBuildingDto.getNumberOfIndividualApartments()
         );
         return apartmentBuildingRepository.save(apartmentBuilding);
+    }
+
+    @Override
+    public List<ApartmentBuilding> getAllBuildings(){
+        return apartmentBuildingRepository.findAll();
     }
 }
