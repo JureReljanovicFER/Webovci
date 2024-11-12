@@ -10,8 +10,14 @@ import Building from "./components/Building";
 import DiscussionPage from "./DiscussionPage.jsx";
 import Home from "./Home.jsx";
 import Layout from "./UserLayout.jsx";
+import FirstPage from "./FirstPage.jsx";
 
 const router = createBrowserRouter([
+    {
+        path: "/",
+        element: <FirstPage />,
+    },
+
     {
         path: "/:userid",
         element: <Layout />,
