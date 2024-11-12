@@ -9,6 +9,4 @@ import java.util.List;
 @Repository
 public interface UserRepository extends JpaRepository<AppUser, Long> {
     List<AppUser> findByEmail(String email);
-
-    AppUser findByUserId(Long id);
 }

@@ -38,14 +38,14 @@ public class ApartmentBuildingController {
         }
     }
 
-    @GetMapping("/user/{userId}")
-    public ResponseEntity<List<ApartmentBuilding>> getApartmentBuilding(@PathVariable Long userId){
+    @GetMapping("/user/{id}")
+    public ResponseEntity<List<ApartmentBuilding>> getApartmentBuilding(@PathVariable Long id){
         try{
-            if (userService.isUserAdmin(userId)){
+            if (userService.isUserAdmin(id)){
                 List<ApartmentBuilding> allBuildings = apartmentBuildingService.getAllBuildings();
                 return ResponseEntity.ok(allBuildings);
             } else {
-                List<ApartmentBuilding> userBuildings = userApartmentBuildingRepository.findBuildingsByUserId(userId);
+                List<ApartmentBuilding> userBuildings = userApartmentBuildingRepository.findBuildingsByUserId(id);
                 return ResponseEntity.ok(userBuildings);
             }
         } catch (Exception e){

@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -77,8 +78,9 @@ public class UserService {
         return true;
     }
 
-    public boolean isUserAdmin(Long userId){
-        AppUser user = userRepository.findByUserId(userId);
+    public boolean isUserAdmin(Long id){
+        Optional<AppUser> optionalUser = userRepository.findById(id);
+        AppUser user = optionalUser.orElse(null);
         return user != null && "ADMIN".equals(user.getUserRole().toString());
     }
 
