@@ -1,5 +1,5 @@
 import logo from "../assets/images/logoNav.png";
-import "./Header.css"
+import "./styles/Header.css"
 const Navbar = () => {
   const shoot = () => {
     let odabir=window.confirm("Jeste li sigurni da se želite log-outat");
