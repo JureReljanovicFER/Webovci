@@ -11,37 +11,39 @@ import hr.stanblog.stanblog.model.UserApartmentBuilding;
 import hr.stanblog.stanblog.service.EmailService;
 import hr.stanblog.stanblog.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
-
-    @RestController
+@RestController
     @RequestMapping("/user")
     public class UserController {
         private final UserService userService;
         private final EmailService emailService;
+
         @Autowired
         public UserController(UserService userService, EmailService emailService) {
             this.userService = userService;
             this.emailService = emailService;
         }
+
         @RequestMapping("/addNew")
         @PostMapping
-        public String addNewUser(@RequestBody AppUser appUser) {
+        public ResponseEntity<String> addNewUser(@RequestBody AppUser appUser) {
             try {
                 userService.addNewUser(appUser);
-                return "Uspješna registracija";
+                return new ResponseEntity<>("Uspješna registracija", HttpStatus.OK);
             } catch (UserAlreadyExistsException e) {
-
-                return "Korisnik s emailom: " + appUser.getEmail() + " već postoji";
+                return new ResponseEntity<>("Korisnik s emailom: " + appUser.getEmail() + " već postoji", HttpStatus.BAD_REQUEST);
             }
         }
+
         @RequestMapping("/addUserBuilding")
         @PostMapping
-        public String addUserToABuilding(@RequestBody UserApartmentBuildingDto userApartmentBuildingDto) {
+        public ResponseEntity<String> addUserToABuilding(@RequestBody UserApartmentBuildingDto userApartmentBuildingDto) {
             System.err.println(userApartmentBuildingDto.isRepresentative());
             UserApartmentBuilding userApartmentBuilding = new UserApartmentBuilding(new AppUser(), new ApartmentBuilding(), userApartmentBuildingDto.isRepresentative());
             userApartmentBuilding.getUser().setEmail(userApartmentBuildingDto.getUserEMail());
@@ -50,16 +52,14 @@ import org.springframework.web.bind.annotation.RestController;
 
             try {
                 userService.addUserApartmentBuilding(userApartmentBuilding);
-                return "Korisnik uspješno dodan u zgradu";
+                return new ResponseEntity<>("Korisnik uspješno dodan u zgradu", HttpStatus.OK);
             } catch (UserIsAlreadyInThatBuildingException e) {
-
-                return "Korisnik s emailom: " + userApartmentBuilding.getUser().getEmail() + " je već u zgradi s Id-om: " + userApartmentBuilding.getApartmentBuilding().getId();
+                return new ResponseEntity<>("Korisnik s emailom: " + userApartmentBuilding.getUser().getEmail() + " je već u zgradi s Id-om: " + userApartmentBuilding.getApartmentBuilding().getId(), HttpStatus.BAD_REQUEST);
             } catch (NoSuchUserException e2) {
-                return "Korisnik s emailom: " + userApartmentBuilding.getUser().getEmail() + " ne postoji";
+                return new ResponseEntity<>("Korisnik s emailom: " + userApartmentBuilding.getUser().getEmail() + " ne postoji", HttpStatus.BAD_REQUEST);
             } catch (NoSuchBuildingException e3) {
-                return "Zgrada s Id-om: "+userApartmentBuilding.getApartmentBuilding().getId()+ " ne postoji";
+                return new ResponseEntity<>("Zgrada s Id-om: "+userApartmentBuilding.getApartmentBuilding().getId()+ " ne postoji", HttpStatus.BAD_REQUEST);
             }
-
                         /**
              * Primjer dodavanja usera u zgradu
              * {
@@ -70,24 +70,19 @@ import org.springframework.web.bind.annotation.RestController;
              *
              *
              */
-
-
         }
 
         @RequestMapping("/addNewUserBuilding")
         @PostMapping
-        public String addNewUserToABuilding(@RequestBody UserApartmentBuilding userApartmentBuilding) {
-
-
+        public ResponseEntity<String> addNewUserToABuilding(@RequestBody UserApartmentBuilding userApartmentBuilding) {
             try {
                 userService.addNewUserApartmentBuilding(userApartmentBuilding);
-                return "Korisnik uspješno dodan u zgradu";
+                return new ResponseEntity<>("Korisnik uspješno dodan u zgradu", HttpStatus.CREATED);
             } catch (UserAlreadyExistsException e) {
-                return "Korisnik s emailom: " + userApartmentBuilding.getUser().getEmail() + " već postoji";
+                return new ResponseEntity<>("Korisnik s emailom: " + userApartmentBuilding.getUser().getEmail() + " već postoji", HttpStatus.BAD_REQUEST);
             } catch (NoSuchBuildingException e2) {
-                return "Zgrada s Id-om: "+userApartmentBuilding.getApartmentBuilding().getId()+ " ne postoji";
+                return new ResponseEntity<>("Zgrada s Id-om: "+userApartmentBuilding.getApartmentBuilding().getId()+ " ne postoji", HttpStatus.BAD_REQUEST);
             }
-
 
             /**
              * Primjer dodavanja usera u zgradu
@@ -108,9 +103,6 @@ import org.springframework.web.bind.annotation.RestController;
              */
 
         }
-
-
-
     }
 
 

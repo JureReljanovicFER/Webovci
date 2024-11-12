@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/apartment-buildings")
+@RequestMapping("apartment-buildings")
 public class ApartmentBuildingController {
     private final ApartmentBuildingService apartmentBuildingService;
 
@@ -28,7 +28,7 @@ public class ApartmentBuildingController {
         this.apartmentBuildingService = apartmentBuildingService;
     }
 
-    @PostMapping("/new")
+    @PostMapping("new")
     public ResponseEntity<ApartmentBuilding> createApartmentBuilding(@RequestBody ApartmentBuildingDto apartmentBuildingDto){
         try {
             ApartmentBuilding apartmentBuilding = apartmentBuildingService.saveApartmentBuilding(apartmentBuildingDto);
@@ -38,14 +38,14 @@ public class ApartmentBuildingController {
         }
     }
 
-    @GetMapping("/user/{id}")
-    public ResponseEntity<List<ApartmentBuilding>> getApartmentBuilding(@PathVariable Long id){
+    @GetMapping("{userId}")
+    public ResponseEntity<List<ApartmentBuilding>> getApartmentBuilding(@PathVariable Long userId){
         try{
-            if (userService.isUserAdmin(id)){
+            if (userService.isUserAdmin(userId)){
                 List<ApartmentBuilding> allBuildings = apartmentBuildingService.getAllBuildings();
                 return ResponseEntity.ok(allBuildings);
             } else {
-                List<ApartmentBuilding> userBuildings = userApartmentBuildingRepository.findBuildingsByUserId(id);
+                List<ApartmentBuilding> userBuildings = userApartmentBuildingRepository.findBuildingsByUserId(userId);
                 return ResponseEntity.ok(userBuildings);
             }
         } catch (Exception e){
