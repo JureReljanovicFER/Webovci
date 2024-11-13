@@ -1,38 +1,30 @@
 package hr.stanblog.stanblog.api;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import hr.stanblog.stanblog.dto.UserDto;
-import hr.stanblog.stanblog.service.AuthService;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.*;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 @RequestMapping("/oauth")
 @RestController
 public class AuthController {
-
     @Value("${spring.security.oauth2.client.registration.google.client-id}")
     private String clientId;
 
     @Value("${spring.security.oauth2.client.registration.google.client-secret}")
     private String clientSecret;
 
-    private AuthService userService;
-
-    @Autowired
-    public AuthController(AuthService userService) {
-        this.userService = userService;
-    }
-    
     @PostMapping("/login")
     public ResponseEntity<String> userLogin(@RequestParam("code") String code, @RequestParam("scope") String scope, @RequestParam("authuser") String authUser, @RequestParam("prompt") String prompt){
-        userService.loginUser(userDto);
-        return new ResponseEntity<>("Success", HttpStatus.CREATED);
+        String accesToken = this.getOauthAccessTokenGoogle(code);
+
+        String data = this.getProfileDetailsGoogle(accesToken);
+
+        System.out.println(data);
+
+        return new ResponseEntity<>(data, HttpStatus.CREATED);
     }
 
     private String getOauthAccessTokenGoogle(String code) {
@@ -57,7 +49,7 @@ public class AuthController {
         return response;
     }
 
-    private void getProfileDetailsGoogle(String accessToken) {
+    private String getProfileDetailsGoogle(String accessToken) {
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setBearerAuth(accessToken);
@@ -66,7 +58,8 @@ public class AuthController {
 
         String url = "https://www.googleapis.com/oauth2/v2/userinfo";
         ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, requestEntity, String.class);
-        JsonObject jsonObject = new Gson().fromJson(response.getBody(), JsonObject.class);
+        String data = response.getBody();
+        return data;
     }
 }
 
