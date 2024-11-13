@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import hr.stanblog.stanblog.dto.UserDto;
 import hr.stanblog.stanblog.service.AuthService;
 
-@RequestMapping("/auth")
+@RequestMapping("/oauth")
 @RestController
 public class AuthController {
     private AuthService userService;
