@@ -1,0 +1,128 @@
+#root{
+    width: 100%;
+    max-width: 100%;
+    margin:0 0;
+    padding: 0rem;
+    text-align: center;
+}
+body{
+    margin: 0;
+    display: flex;
+    place-items: center;
+    min-width: 0px;
+    min-height: 0vh;
+    width: 100%;
+}
+.odabirZgrade{
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    row-gap: 1vw;
+    width: 100%;
+    overflow-x: hidden;
+    overflow-y: hidden;
+   background-color: #FAF9F6;
+
+}
+.zgrada{
+    height: 39vh;
+    width: auto;
+    border: 2px solid black;
+    border-radius: 5%;
+    padding: 5%;
+    overflow: hidden;
+    background-color: white;
+    z-index: 0;
+}
+.zgrada h1{
+    font-size: 3em;
+    text-decoration: none;
+    
+}
+.zgrada:hover{
+    background-color: lightgrey;
+}
+.odabirZgradeLink{
+    margin: 2vh 2vw 2vh 2vw;
+    color: black;
+    text-decoration:none;
+}
+.odabirZgradeLink:hover{
+    color: black;
+}
+.linijaDodat{
+    margin-left: -5%; 
+    margin-right: -5%; 
+    width: calc(100% + 10%); 
+}
+.login-form{
+    border-radius: 2%;
+    position: absolute;
+    top: 50%;           
+    left: 50%;           
+    transform: translate(-50%, -50%); 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+    width: 40vw;
+    height: 45vh;
+    background-color: white;
+    border: solid 2px black;
+}
+.close_login{
+    position: absolute;
+    margin-top: -38vh;
+    right: 0vw;
+}
+.tekst_login{
+    margin-top: 3vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+.tekst_login label{
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    width: 35vw;
+    font-size: 1em;
+}
+.tekst_login button{
+    border-radius: 25px;
+    width: 8vw;
+    height: 5vh;
+    background-color: #FAF9F6;
+    border: solid 4px #4355c6;
+    position: relative;
+    color: #4355c6;
+    font-weight: bold;
+}
+.tekst_login input{
+    border: none;
+    border-bottom: 2px solid darkgray;
+}
+.tekst_login input:focus{
+    outline:0px solid ;
+    border:none;
+    border-bottom: 2px solid black;
+}
+.tekst_login input:hover{
+    border:none;
+    border-bottom: 2px solid black;
+}
+.tekst_login button:hover{
+    background-color: darkgray;
+}
+.close_login{
+    border-radius: 25px;
+    width: 2vw;
+    height: 2vw;
+    background-color: #FAF9F6;
+    border: solid 4px #4355c6;
+    position: relative;
+    color: #4355c6;
+    font-weight: bold;
+    right: 0;
+    position: absolute;
+}
+.close_login:hover{
+    background-color: darkgray  ;
+
+}
