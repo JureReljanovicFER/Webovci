@@ -43,8 +43,6 @@ public class AuthController {
         params.add("scope", "openid");
         params.add("grant_type", "authorization_code");
 
-
-
         HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(params, httpHeaders);
 
         String url = "https://oauth2.googleapis.com/token";
