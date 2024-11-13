@@ -1,22 +1,17 @@
 import { FcGoogle } from "react-icons/fc";
 import "./style.css";
-import { useNavigate } from "react-router-dom";
 
 function Login() {
-    const navigate = useNavigate();
-
     return (
         <>
             <div className="body">
                 <div id="login_form">
                     <h1>You need to log in</h1>
-                    <button
-                        onClick={() => {
-                            navigate("/1");
-                        }}
-                    >
-                        Log in with Google <FcGoogle />
-                    </button>
+                    <a href="https://accounts.google.com/o/oauth2/v2/auth?redirect_uri=https://webovci.onrender.com/login/oauth&response_type=code&client_id=442466901721-vdd38j9fev4g56mndioe14kchem2cjeu.apps.googleusercontent.com&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+openid&access_type=offline">
+                        <button>
+                            Log in with Google <FcGoogle />
+                        </button>
+                    </a>
                 </div>
             </div>
         </>
