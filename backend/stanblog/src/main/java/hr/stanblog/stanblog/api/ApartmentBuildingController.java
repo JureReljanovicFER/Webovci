@@ -14,7 +14,7 @@ import java.util.List;
 
 @CrossOrigin(origins = {"http://localhost:5173", "https://jazzy-madeleine-64561a.netlify.app", "https://webovci-1.onrender.com"})
 @RestController
-@RequestMapping("apartment-buildings")
+@RequestMapping("/apartment-buildings")
 public class ApartmentBuildingController {
     private final ApartmentBuildingService apartmentBuildingService;
 
@@ -29,7 +29,7 @@ public class ApartmentBuildingController {
         this.apartmentBuildingService = apartmentBuildingService;
     }
 
-    @PostMapping("new")
+    @PostMapping("/new")
     public ResponseEntity<ApartmentBuilding> createApartmentBuilding(@RequestBody ApartmentBuildingDto apartmentBuildingDto){
         try {
             ApartmentBuilding apartmentBuilding = apartmentBuildingService.saveApartmentBuilding(apartmentBuildingDto);
@@ -39,7 +39,7 @@ public class ApartmentBuildingController {
         }
     }
 
-    @GetMapping("{userId}")
+    @GetMapping("/{userId}")
     public ResponseEntity<List<ApartmentBuilding>> getApartmentBuilding(@PathVariable Long userId){
         try{
             if (userService.isUserAdmin(userId)){
