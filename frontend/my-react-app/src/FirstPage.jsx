@@ -6,6 +6,10 @@ export default function Home() {
     const navigate = useNavigate();
 
     useEffect(() => {
+        const hash = location.hash;
+        if (hash) {
+            navigate("/login" + response);
+        }
         navigate("/login");
     }, []);
 
