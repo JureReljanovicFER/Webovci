@@ -1,10 +1,16 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import "./styles/BuildingsChoice.css";
 import { useState, useEffect, useRef } from "react";
 import { BsFillBuildingsFill } from "react-icons/bs";
 import { FaPlus } from "react-icons/fa";
+
 const BuildingsChoice = ({ data }) => {
+    const {id} =useParams()
+    console.log(+id)
+
+
     const [showAddNew, setShowAddNew] = useState(false);
     const targetDivRef = useRef(null);
 
@@ -27,7 +33,6 @@ const BuildingsChoice = ({ data }) => {
             alert("broj apartmana mora biti broj veći od 0");
             return;
         }
-        console.log(parseInt(zipCode, 10));
         if (isNaN(parseInt(zipCode, 10)) || isNaN(parseInt(numberOfIndividualApartments, 10))) {
             alert("Zip code i broj apartmana mora biti broj");
             return;
