@@ -3,7 +3,6 @@ package hr.stanblog.stanblog.dto;
 import hr.stanblog.stanblog.model.UserRole;
 
 public class UserDto {
-
     private String firstName;
 
     private String lastName;

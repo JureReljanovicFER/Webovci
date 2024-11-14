@@ -19,6 +19,7 @@ hr/stanblog/stanblog/model/ApartmentBuilding.class
 hr/stanblog/stanblog/dto/UserApartmentBuildingDto.class
 hr/stanblog/stanblog/service/ApartmentBuildingService.class
 hr/stanblog/stanblog/dao/UserApartmentBuildingRepository.class
+hr/stanblog/stanblog/exceptions/ResponseObj.class
 hr/stanblog/stanblog/service/AuthService.class
 hr/stanblog/stanblog/exceptions/individualExceptions/NoSuchUserException.class
 hr/stanblog/stanblog/exceptions/individualExceptions/NoSuchBuildingException.class

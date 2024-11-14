@@ -10,6 +10,7 @@
 /Users/jurer/Business/webovci/backend/stanblog/src/main/java/hr/stanblog/stanblog/dto/UserDto.java
 /Users/jurer/Business/webovci/backend/stanblog/src/main/java/hr/stanblog/stanblog/exceptions/ErrorResponse.java
 /Users/jurer/Business/webovci/backend/stanblog/src/main/java/hr/stanblog/stanblog/exceptions/GlobalExceptionHandler.java
+/Users/jurer/Business/webovci/backend/stanblog/src/main/java/hr/stanblog/stanblog/exceptions/ResponseObj.java
 /Users/jurer/Business/webovci/backend/stanblog/src/main/java/hr/stanblog/stanblog/exceptions/individualExceptions/NoSuchBuildingException.java
 /Users/jurer/Business/webovci/backend/stanblog/src/main/java/hr/stanblog/stanblog/exceptions/individualExceptions/NoSuchUserException.java
 /Users/jurer/Business/webovci/backend/stanblog/src/main/java/hr/stanblog/stanblog/exceptions/individualExceptions/UserAlreadyExistsException.java

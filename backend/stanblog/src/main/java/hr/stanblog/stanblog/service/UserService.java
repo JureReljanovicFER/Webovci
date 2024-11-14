@@ -9,6 +9,7 @@ import hr.stanblog.stanblog.exceptions.individualExceptions.UserAlreadyExistsExc
 import hr.stanblog.stanblog.exceptions.individualExceptions.UserIsAlreadyInThatBuildingException;
 import hr.stanblog.stanblog.model.AppUser;
 import hr.stanblog.stanblog.model.UserApartmentBuilding;
+import hr.stanblog.stanblog.model.UserRole;
 import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -81,7 +82,7 @@ public class UserService {
     public boolean isUserAdmin(Long id){
         Optional<AppUser> optionalUser = userRepository.findById(id);
         AppUser user = optionalUser.orElse(null);
-        return user != null && "ADMIN".equals(user.getUserRole().toString());
+        return user != null && user.getUserRole().equals(UserRole.ADMIN);
     }
 
 
