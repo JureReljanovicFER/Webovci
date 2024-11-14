@@ -5,11 +5,12 @@ import { useNavigate, useLocation } from "react-router-dom";
 
 function Login() {
     const navigate = useNavigate();
-    const {state} = useLocation();
+    const { state } = useLocation();
     const [showError, setShowError] = useState(false);
     const [loading, setLoading] = useState(false);
 
     const response = location.hash || state;
+
     let accessCode = "";
 
     const getAccessToken = async () => {
