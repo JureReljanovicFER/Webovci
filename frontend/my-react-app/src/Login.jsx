@@ -1,14 +1,15 @@
 import { FcGoogle } from "react-icons/fc";
 import "./style.css";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 function Login() {
     const navigate = useNavigate();
+    const {state} = useLocation();
     const [showError, setShowError] = useState(false);
     const [loading, setLoading] = useState(false);
 
-    const response = location.hash;
+    const response = location.hash || state;
     let accessCode = "";
 
     const getAccessToken = async () => {
