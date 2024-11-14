@@ -46,11 +46,13 @@ public class ApartmentBuildingController {
                 List<ApartmentBuilding> allBuildings = apartmentBuildingService.getAllBuildings();
                 return ResponseEntity.ok(allBuildings);
             } else {
-                List<ApartmentBuilding> userBuildings = userApartmentBuildingRepository.findBuildingsByUserId(userId);
+                List<ApartmentBuilding> userBuildings = apartmentBuildingService.getAppartmentBuildingsByUserId(userId);
                 return ResponseEntity.ok(userBuildings);
             }
         } catch (Exception e){
             return ResponseEntity.badRequest().body(null);
         }
     }
+
+
 }
