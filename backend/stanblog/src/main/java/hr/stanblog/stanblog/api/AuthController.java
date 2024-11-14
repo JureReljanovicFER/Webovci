@@ -19,7 +19,7 @@ import org.json.*;
 import java.util.List;
 
 
-@CrossOrigin(origins = {"http://localhost:5173", "https://jazzy-madeleine-64561a.netlify.app"})
+@CrossOrigin(origins = {"http://localhost:5173", "https://jazzy-madeleine-64561a.netlify.app", "https://webovci-1.onrender.com"})
 @RequestMapping("/oauth")
 @RestController
 public class AuthController {
