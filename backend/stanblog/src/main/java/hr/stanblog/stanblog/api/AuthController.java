@@ -1,5 +1,6 @@
 package hr.stanblog.stanblog.api;
 import hr.stanblog.stanblog.dao.UserRepository;
+import hr.stanblog.stanblog.exceptions.ResponseObj;
 import hr.stanblog.stanblog.model.AppUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -61,12 +62,12 @@ public class AuthController {
     }
 
     @GetMapping("/accessEmail")
-    public ResponseEntity<String> accessEmail(@RequestParam("token") String accessToken){
+    public ResponseEntity<ResponseObj> accessEmail(@RequestParam("token") String accessToken){
         System.out.println("accessEmail");
 
         String data = this.getProfileDetailsGoogle(accessToken);
 
-        return new ResponseEntity<>(data, HttpStatus.CREATED);
+        return new ResponseEntity<>(new ResponseObj(data), HttpStatus.CREATED);
     }
 
     private String getOauthAccessTokenGoogle(String code) {
