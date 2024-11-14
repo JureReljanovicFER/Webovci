@@ -73,6 +73,6 @@ public class AppUser {
 
     @Override
     public String toString() {
-       return ("name: " + this.firstName + "\n" + "prezime: " + this.lastName + "\n" + "email: " + this.email + "\n" + "user role: " + this.userRole);
+       return ("name: " + this.firstName + "\n" + "prezime: " + this.lastName + "\n" + "email: " + this.email + "\n" + "user role: " + this.userRole) ;
     }
 }
