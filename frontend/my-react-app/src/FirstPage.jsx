@@ -8,7 +8,7 @@ export default function Home() {
     useEffect(() => {
         const hash = location.hash;
         if (hash) {
-            navigate("/login" + response);
+            navigate(`/login${hash}`);
         }
         navigate("/login");
     }, []);
