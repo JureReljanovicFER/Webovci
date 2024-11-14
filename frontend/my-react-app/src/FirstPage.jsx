@@ -3,15 +3,15 @@ import "./style.css";
 import { useNavigate } from "react-router-dom";
 
 export default function Home() {
+    const hash = location.hash
     const navigate = useNavigate();
 
     useEffect(() => {
-        const hash = location.hash;
         if (hash) {
             navigate(`/login${hash}`);
         }
         navigate("/login");
-    }, []);
+    }, [navigate]);
 
     return (
         <>
