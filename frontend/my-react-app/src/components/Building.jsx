@@ -87,7 +87,7 @@ const Building = () => {
                 <div className="building_description">
                     <p>Opis zgrade</p>
                     <hr></hr>
-                    <p>{data.adress}</p>
+                    <p>{data.address}</p>
                     <div className={`additional-paragraphs ${pokaziDrugi ? "show" : ""}`}>
                         <p>
                             {data.city} , {data.zipCode}

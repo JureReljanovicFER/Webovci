@@ -12,7 +12,7 @@ const BuildingsChoice = ({ data }) => {
     const [showAddNew, setShowAddNew] = useState(false);
     const targetDivRef = useRef(null);
 
-    const [adress, setAdress] = useState("");
+    const [address, setAddress] = useState("");
     const [zipCode, setZipCode] = useState("");
     const [city, setCity] = useState("");
     const [numberOfIndividualApartments, setNoia] = useState("");
@@ -21,7 +21,7 @@ const BuildingsChoice = ({ data }) => {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        if (adress == "" || zipCode == "" || numberOfIndividualApartments == "" || zipCode == "") {
+        if (address == "" || zipCode == "" || numberOfIndividualApartments == "" || zipCode == "") {
             alert("sva polja trebaju biti puna");
             return;
         }
@@ -39,11 +39,12 @@ const BuildingsChoice = ({ data }) => {
         }
 
         const data = {
-            adress,
+            address,
             zipCode: parseInt(zipCode, 10),
             city,
             numberOfIndividualApartments: parseInt(numberOfIndividualApartments, 10),
         };
+        console.log(data)
         try {
             const response = await fetch("https://webovci.onrender.com/api/apartment-buildings/new", {
                 method: "POST",
@@ -61,7 +62,7 @@ const BuildingsChoice = ({ data }) => {
             const newDiv = (
                 <Link key={divs.length} className="odabirZgradeLink" >
                         <div className="zgrada">
-                            <h1>{adress}</h1>
+                            <h1>{address}</h1>
                             <BsFillBuildingsFill size={200} opacity={0.5} />
                         </div>
                     </Link>
@@ -69,7 +70,7 @@ const BuildingsChoice = ({ data }) => {
             setDivs([...divs, newDiv]);
 
             toggleAddNew();
-            setAdress("");
+            setAddress("");
             setCity("");
             setNoia("");
             setZipCode("");
@@ -116,8 +117,8 @@ const BuildingsChoice = ({ data }) => {
                     <form onSubmit={handleSubmit}>
                         <div className="tekst_login">
                             <label>
-                                Adress:
-                                <input type="text" name="adresstxt" value={adress} onChange={(e) => setAdress(e.target.value)} />
+                                Address:
+                                <input type="text" name="addresstxt" value={address} onChange={(e) => setAddress(e.target.value)} />
                             </label>
                             <br />
                             <label>

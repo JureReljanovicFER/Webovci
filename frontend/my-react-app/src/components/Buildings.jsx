@@ -22,7 +22,7 @@ const Buildings = () => {
         };
         fetchData();
     }, []);
-    console.log(data)
+
 
     if (loading) return <p>Loading...</p>;
 
