@@ -4,7 +4,6 @@ import { useLocation } from "react-router-dom";
 const Buildings = () => {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [testData,setTestData] = useState([]);
     const location = useLocation();
     const id=location.pathname.replace(/^\/|\/buildings$/g, '')
 
@@ -12,7 +11,7 @@ const Buildings = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const res = await fetch("http://localhost:8000/ApartmentBuildings");
+                const res = await fetch("https://webovci.onrender.com/api/apartment-buildings/1");
                 const data = await res.json();
                 setData(data);
             } catch (error) {
@@ -23,28 +22,7 @@ const Buildings = () => {
         };
         fetchData();
     }, []);
-
-
-    useEffect(() => {
-      const fetchDataTest = async () => {
-          try {
-              const res = await fetch("https://webovci.onrender.com/api/apartment-buildings/"+id);
-
-              const testata = await res.json();
-              setTestData(testdata);
-          } catch (error) {
-              console.log("Error fetching data:", error);
-          } finally {
-              setLoading(false);
-          }
-      };
-      fetchDataTest();
-  }, []);
-  
-   console.log(testData)
-
-
-
+    console.log(data)
 
     if (loading) return <p>Loading...</p>;
 

@@ -95,7 +95,7 @@ const BuildingsChoice = ({ data }) => {
                 {data.map((item, index) => (
                     <Link key={index} className="odabirZgradeLink" to={`${item.id}`} state={{ data: item }}>
                         <div className="zgrada">
-                            <h1>{item.adress}</h1>
+                            <h1>{item.address}</h1>
                             <BsFillBuildingsFill size={200} opacity={0.5} />
                         </div>
                     </Link>
