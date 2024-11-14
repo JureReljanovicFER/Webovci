@@ -29,7 +29,7 @@ const Buildings = () => {
       const fetchDataTest = async () => {
           try {
               const res = await fetch("https://webovci.onrender.com/api/apartment-buildings/"+id);
-              console.log("https://webovci.onrender.com/api/apartment-buildings/"+id)
+
               const testata = await res.json();
               setTestData(testdata);
           } catch (error) {

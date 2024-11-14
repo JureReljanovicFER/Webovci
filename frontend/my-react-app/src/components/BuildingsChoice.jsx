@@ -16,6 +16,8 @@ const BuildingsChoice = ({ data }) => {
     const [zipCode, setZipCode] = useState("");
     const [city, setCity] = useState("");
     const [numberOfIndividualApartments, setNoia] = useState("");
+
+    const [divs, setDivs] = useState([]);
     const handleSubmit = async (event) => {
         event.preventDefault();
 
@@ -50,15 +52,27 @@ const BuildingsChoice = ({ data }) => {
                 },
                 body: JSON.stringify(data),
             });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const result = await response.json();
+
+            const newDiv = (
+                <Link key={divs.length} className="odabirZgradeLink" >
+                        <div className="zgrada">
+                            <h1>{adress}</h1>
+                            <BsFillBuildingsFill size={200} opacity={0.5} />
+                        </div>
+                    </Link>
+            );
+            setDivs([...divs, newDiv]);
+
             toggleAddNew();
             setAdress("");
             setCity("");
             setNoia("");
             setZipCode("");
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            const result = await response.json();
         } catch (error) {}
     };
 
@@ -86,6 +100,7 @@ const BuildingsChoice = ({ data }) => {
                         </div>
                     </Link>
                 ))}
+                {divs}
                 <a className="odabirZgradeLink" onClick={toggleAddNew}>
                     <div className="zgrada">
                         <p>dodaj zgradu</p>
