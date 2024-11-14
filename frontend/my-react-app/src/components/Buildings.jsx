@@ -1,9 +1,12 @@
 import { useState, useEffect } from "react";
 import BuildingsChoice from "./BuildingsChoice";
+import { useLocation } from "react-router-dom";
 const Buildings = () => {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [testData,setTestData] = useState([]);
+    const location = useLocation();
+    const id=location.pathname.replace(/^\/|\/buildings$/g, '')
 
  
     useEffect(() => {
@@ -25,7 +28,8 @@ const Buildings = () => {
     useEffect(() => {
       const fetchDataTest = async () => {
           try {
-              const res = await fetch("https://webovci.onrender.com ");
+              const res = await fetch("https://webovci.onrender.com/api/apartment-buildings/"+id);
+              console.log("https://webovci.onrender.com/api/apartment-buildings/"+id)
               const testata = await res.json();
               setTestData(testdata);
           } catch (error) {
@@ -36,6 +40,11 @@ const Buildings = () => {
       };
       fetchDataTest();
   }, []);
+  
+   console.log(testData)
+
+
+
 
     if (loading) return <p>Loading...</p>;
 

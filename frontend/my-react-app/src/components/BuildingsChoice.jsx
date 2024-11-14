@@ -1,14 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useParams } from "react-router-dom";
 import "./styles/BuildingsChoice.css";
 import { useState, useEffect, useRef } from "react";
 import { BsFillBuildingsFill } from "react-icons/bs";
 import { FaPlus } from "react-icons/fa";
 
+
 const BuildingsChoice = ({ data }) => {
-    const {id} =useParams()
-    console.log(+id)
 
 
     const [showAddNew, setShowAddNew] = useState(false);
