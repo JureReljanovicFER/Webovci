@@ -45,7 +45,7 @@ function Login() {
                     {loading ? (
                         <p>Učitavanje ...</p>
                     ) : (
-                        <a href="https://accounts.google.com/o/oauth2/v2/auth?redirect_uri=https://jazzy-madeleine-64561a.netlify.app/login&response_type=token&client_id=860876392172-7ft3es30lvo02gc4dh1b0apcsoa5oijc.apps.googleusercontent.com&scope=https://www.googleapis.com/auth/userinfo.email">
+                        <a href="https://accounts.google.com/o/oauth2/v2/auth?redirect_uri=https://webovci.onrender.com/login&response_type=token&client_id=860876392172-7ft3es30lvo02gc4dh1b0apcsoa5oijc.apps.googleusercontent.com&scope=https://www.googleapis.com/auth/userinfo.email">
                             <button>
                                 Log in with Google <FcGoogle />
                             </button>
