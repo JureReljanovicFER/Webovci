@@ -1,6 +1,7 @@
 package hr.stanblog.stanblog.api;
 
 import hr.stanblog.stanblog.dto.UserApartmentBuildingDto;
+import hr.stanblog.stanblog.exceptions.Response;
 import hr.stanblog.stanblog.exceptions.individualExceptions.NoSuchBuildingException;
 import hr.stanblog.stanblog.exceptions.individualExceptions.NoSuchUserException;
 import hr.stanblog.stanblog.exceptions.individualExceptions.UserAlreadyExistsException;
@@ -32,18 +33,18 @@ import java.util.List;
 
         @RequestMapping("/addNew")
         @PostMapping
-        public ResponseEntity<String> addNewUser(@RequestBody AppUser appUser) {
+        public ResponseEntity<Response> addNewUser(@RequestBody AppUser appUser) {
             try {
                 userService.addNewUser(appUser);
-                return new ResponseEntity<>("Uspješna registracija", HttpStatus.OK);
+                return new ResponseEntity<>(new Response("Uspješna registracija"), HttpStatus.OK);
             } catch (UserAlreadyExistsException e) {
-                return new ResponseEntity<>("Korisnik s emailom: " + appUser.getEmail() + " već postoji", HttpStatus.BAD_REQUEST);
+                return new ResponseEntity<>(new Response("Korisnik s emailom: " + appUser.getEmail() + " već postoji"), HttpStatus.BAD_REQUEST);
             }
         }
 
         @RequestMapping("/addUserBuilding")
         @PostMapping
-        public ResponseEntity<String> addUserToABuilding(@RequestBody UserApartmentBuildingDto userApartmentBuildingDto) {
+        public ResponseEntity<Response> addUserToABuilding(@RequestBody UserApartmentBuildingDto userApartmentBuildingDto) {
             System.err.println(userApartmentBuildingDto.isRepresentative());
             UserApartmentBuilding userApartmentBuilding = new UserApartmentBuilding(new AppUser(), new ApartmentBuilding(), userApartmentBuildingDto.isRepresentative());
             userApartmentBuilding.getUser().setEmail(userApartmentBuildingDto.getUserEMail());
@@ -52,13 +53,13 @@ import java.util.List;
 
             try {
                 userService.addUserApartmentBuilding(userApartmentBuilding);
-                return new ResponseEntity<>("Korisnik uspješno dodan u zgradu", HttpStatus.OK);
+                return new ResponseEntity<>(new Response("Korisnik uspješno dodan u zgradu"), HttpStatus.OK);
             } catch (UserIsAlreadyInThatBuildingException e) {
-                return new ResponseEntity<>("Korisnik s emailom: " + userApartmentBuilding.getUser().getEmail() + " je već u zgradi s Id-om: " + userApartmentBuilding.getApartmentBuilding().getId(), HttpStatus.BAD_REQUEST);
+                return new ResponseEntity<>(new Response("Korisnik s emailom: " + userApartmentBuilding.getUser().getEmail() + " je već u zgradi s Id-om: " + userApartmentBuilding.getApartmentBuilding().getId()), HttpStatus.BAD_REQUEST);
             } catch (NoSuchUserException e2) {
-                return new ResponseEntity<>("Korisnik s emailom: " + userApartmentBuilding.getUser().getEmail() + " ne postoji", HttpStatus.BAD_REQUEST);
+                return new ResponseEntity<>(new Response("Korisnik s emailom: " + userApartmentBuilding.getUser().getEmail() + " ne postoji"), HttpStatus.BAD_REQUEST);
             } catch (NoSuchBuildingException e3) {
-                return new ResponseEntity<>("Zgrada s Id-om: "+userApartmentBuilding.getApartmentBuilding().getId()+ " ne postoji", HttpStatus.BAD_REQUEST);
+                return new ResponseEntity<>(new Response("Zgrada s Id-om: "+userApartmentBuilding.getApartmentBuilding().getId()+ " ne postoji"), HttpStatus.BAD_REQUEST);
             }
                         /**
              * Primjer dodavanja usera u zgradu
@@ -74,14 +75,14 @@ import java.util.List;
 
         @RequestMapping("/addNewUserBuilding")
         @PostMapping
-        public ResponseEntity<String> addNewUserToABuilding(@RequestBody UserApartmentBuilding userApartmentBuilding) {
+        public ResponseEntity<Response> addNewUserToABuilding(@RequestBody UserApartmentBuilding userApartmentBuilding) {
             try {
                 userService.addNewUserApartmentBuilding(userApartmentBuilding);
-                return new ResponseEntity<>("Korisnik uspješno dodan u zgradu", HttpStatus.CREATED);
+                return new ResponseEntity<>(new Response("Korisnik uspješno dodan u zgradu"), HttpStatus.CREATED);
             } catch (UserAlreadyExistsException e) {
-                return new ResponseEntity<>("Korisnik s emailom: " + userApartmentBuilding.getUser().getEmail() + " već postoji", HttpStatus.BAD_REQUEST);
+                return new ResponseEntity<>(new Response("Korisnik s emailom: " + userApartmentBuilding.getUser().getEmail() + " već postoji"), HttpStatus.BAD_REQUEST);
             } catch (NoSuchBuildingException e2) {
-                return new ResponseEntity<>("Zgrada s Id-om: "+userApartmentBuilding.getApartmentBuilding().getId()+ " ne postoji", HttpStatus.BAD_REQUEST);
+                return new ResponseEntity<>(new Response("Zgrada s Id-om: "+userApartmentBuilding.getApartmentBuilding().getId()+ " ne postoji"), HttpStatus.BAD_REQUEST);
             }
 
             /**
