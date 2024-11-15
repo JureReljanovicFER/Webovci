@@ -10,4 +10,6 @@ public interface ApartmentBuildingService {
     ApartmentBuilding saveApartmentBuilding(ApartmentBuildingDto apartmentBuildingDto);
 
     List<ApartmentBuilding> getAllBuildings();
+
+    List<ApartmentBuilding> getAppartmentBuildingsByUserId(Long id);
 }

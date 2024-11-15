@@ -1,4 +1,8 @@
 -------------------------------------------------------------------------------
 Test set: hr.stanblog.stanblog.StanblogApplicationTests
 -------------------------------------------------------------------------------
+<<<<<<< HEAD
 Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 5.990 s -- in hr.stanblog.stanblog.StanblogApplicationTests
+=======
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 6.359 s -- in hr.stanblog.stanblog.StanblogApplicationTests
+>>>>>>> 29b6ad60d0682c7b93f4efb465b4411eac140ae0
