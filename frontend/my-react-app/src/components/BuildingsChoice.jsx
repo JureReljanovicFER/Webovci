@@ -6,7 +6,7 @@ import { BsFillBuildingsFill } from "react-icons/bs";
 import { FaPlus } from "react-icons/fa";
 
 
-const BuildingsChoice = ({ data }) => {
+const BuildingsChoice = ({ data ,user }) => {
 
 
     const [showAddNew, setShowAddNew] = useState(false);
