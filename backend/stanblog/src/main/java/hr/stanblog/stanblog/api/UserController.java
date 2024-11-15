@@ -17,6 +17,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 @CrossOrigin(origins = {"http://localhost:5173", "https://jazzy-madeleine-64561a.netlify.app"})
 @RestController
@@ -105,6 +107,21 @@ import org.springframework.web.bind.annotation.*;
              */
 
         }
+    @GetMapping("{userId}")
+    public ResponseEntity<UserDto> getApartmentBuilding(@PathVariable Long userId){
+
+        try {
+            UserDto userDto = userService.findUserById(userId);
+            return new ResponseEntity<>(userDto, HttpStatus.OK);
+        } catch (NoSuchUserException e) {
+            return ResponseEntity.badRequest().body(null);
+        }
+
+
     }
+}
+
+
+
 
 

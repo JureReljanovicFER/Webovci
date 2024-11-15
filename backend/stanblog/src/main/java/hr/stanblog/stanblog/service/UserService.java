@@ -3,12 +3,14 @@ package hr.stanblog.stanblog.service;
 import hr.stanblog.stanblog.dao.ApartmentBuildingRepository;
 import hr.stanblog.stanblog.dao.UserApartmentBuildingRepository;
 import hr.stanblog.stanblog.dao.UserRepository;
+import hr.stanblog.stanblog.dto.UserDto;
 import hr.stanblog.stanblog.exceptions.individualExceptions.NoSuchBuildingException;
 import hr.stanblog.stanblog.exceptions.individualExceptions.NoSuchUserException;
 import hr.stanblog.stanblog.exceptions.individualExceptions.UserAlreadyExistsException;
 import hr.stanblog.stanblog.exceptions.individualExceptions.UserIsAlreadyInThatBuildingException;
 import hr.stanblog.stanblog.model.AppUser;
 import hr.stanblog.stanblog.model.UserApartmentBuilding;
+import jakarta.persistence.Id;
 import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -85,12 +87,14 @@ public class UserService {
     }
 
 
+    public UserDto findUserById(Long ID) throws NoSuchUserException {
+        AppUser appUser;
+        if (userRepository.findById(ID).isPresent()) {
+            appUser = userRepository.findById(ID).get();
 
+        } else throw new NoSuchUserException();
 
-
-
-
-
-
+        return new UserDto(appUser.getFirstName(), appUser.getLastName(), appUser.getEmail(), appUser.getUserRole());
 
     }
+}
