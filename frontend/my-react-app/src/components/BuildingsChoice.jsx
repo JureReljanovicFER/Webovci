@@ -117,12 +117,12 @@ const BuildingsChoice = ({ data }) => {
                     <form onSubmit={handleSubmit}>
                         <div className="tekst_login">
                             <label>
-                                Address:
+                                Adresa:
                                 <input type="text" name="addresstxt" value={address} onChange={(e) => setAddress(e.target.value)} />
                             </label>
                             <br />
                             <label>
-                                ZipCode:
+                                Poštanski broj:
                                 <input
                                     type="text"
                                     name="zipCodetxt"
@@ -132,12 +132,12 @@ const BuildingsChoice = ({ data }) => {
                             </label>
                             <br />
                             <label>
-                                City:
+                                Grad:
                                 <input type="text" name="citytxt" value={city} onChange={(e) => setCity(e.target.value)} />
                             </label>
                             <br />
                             <label>
-                                number Of Apartments:
+                                Broj stanova u zgradi:
                                 <input
                                     className="text"
                                     type="text"
@@ -148,7 +148,7 @@ const BuildingsChoice = ({ data }) => {
                             </label>
                             <br />
 
-                            <button type="submit">Login</button>
+                            <button type="submit">Dodaj zgradu</button>
                         </div>
                     </form>
                     <button className="close_login" onClick={toggleAddNew}>
