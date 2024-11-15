@@ -18,6 +18,7 @@ import java.util.List;
 public class ApartmentBuildingController {
     private final ApartmentBuildingService apartmentBuildingService;
 
+
     @Autowired
     private UserApartmentBuildingRepository userApartmentBuildingRepository;
 
