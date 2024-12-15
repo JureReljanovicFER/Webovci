@@ -1,8 +1,9 @@
 package hr.stanblog.stanblog.api;
 
-import hr.stanblog.stanblog.dto.ApartmentBuildingDto;
-import hr.stanblog.stanblog.model.ApartmentBuilding;
-import hr.stanblog.stanblog.service.ApartmentBuildingService;
+import hr.stanblog.stanblog.dto.UserVotingDto;
+import hr.stanblog.stanblog.dto.VotingDto;
+import hr.stanblog.stanblog.exceptions.ResponseObj;
+import hr.stanblog.stanblog.model.Voting;
 import hr.stanblog.stanblog.service.impl.VotingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,12 +22,22 @@ public class VotingController {
     }
 
     @PostMapping("/new")
-    public ResponseEntity<ApartmentBuilding> createVoting(@RequestBody VotingDto votingDto){
+    public ResponseEntity<Voting> createVoting(@RequestBody VotingDto votingDto) {
         try {
-            ApartmentBuilding apartmentBuilding = votingService.saveVoting(votingDto);
-            return new ResponseEntity<>(apartmentBuilding, HttpStatus.CREATED);
-        } catch (IllegalArgumentException e){
+            Voting voting = votingService.saveVoting(votingDto);
+            return new ResponseEntity<Voting>(voting, HttpStatus.CREATED);
+        } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PostMapping("/{votingId}")
+    public ResponseEntity<ResponseObj> vote(@RequestBody UserVotingDto userVotingDto, @PathVariable Long votingId){
+        try {
+            votingService.saveVote(votingId, userVotingDto);
+            return new ResponseEntity<>(new ResponseObj("Glas pohranjen."), HttpStatus.CREATED);
+        } catch (IllegalArgumentException e){
+            return new ResponseEntity<>(new ResponseObj("Glas pohranjen."), HttpStatus.BAD_REQUEST);
         }
     }
 }

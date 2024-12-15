@@ -1,13 +1,16 @@
 package hr.stanblog.stanblog.service.impl;
 
+import hr.stanblog.stanblog.dao.DiscussionRepository;
+import hr.stanblog.stanblog.dao.UserVotingRepository;
 import hr.stanblog.stanblog.dao.VotingRepository;
 import hr.stanblog.stanblog.dto.ApartmentBuildingDto;
+import hr.stanblog.stanblog.dto.UserVotingDto;
 import hr.stanblog.stanblog.dto.VotingDto;
-import hr.stanblog.stanblog.model.ApartmentBuilding;
-import hr.stanblog.stanblog.model.Discussion;
-import hr.stanblog.stanblog.model.Voting;
+import hr.stanblog.stanblog.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class VotingService {
@@ -16,10 +19,13 @@ public class VotingService {
     private VotingRepository votingRepository;
 
     @Autowired
-    private DIscussionRepository discussionRepository;
+    private DiscussionRepository discussionRepository;
+
+    @Autowired
+    private UserVotingRepository userVotingRepository;
 
     public Voting saveVoting(VotingDto votingDto) {
-        Discussion discussion = discussionRepository.getById(votingDto.getDiscussionDto().getId());
+        Discussion discussion = discussionRepository.findById(votingDto.getDiscussionDto().getId());
 
         Voting voting = new Voting(
                 votingDto.getTitle(),
@@ -28,5 +34,18 @@ public class VotingService {
                 discussion
         );
         return votingRepository.save(voting);
+    }
+
+    public void saveVote(Long votingId, UserVotingDto userVotingDto) {
+        Optional<Voting> votingOptional = votingRepository.findById(votingId);
+        Voting voting = votingOptional.orElse(null);
+
+        if (voting == null) {
+            throw new IllegalArgumentException("Voting with id " + votingId + " not found.");
+        }
+
+        UserVoting userVoting = new UserVoting(votingId, userVotingDto.isAnswerPozitive());
+
+        userVotingRepository.save(userVoting);
     }
 }

@@ -6,6 +6,7 @@ import hr.stanblog.stanblog.model.ApartmentBuilding;
 
 import java.util.List;
 
+@Repository
 public interface ApartmentBuildingRepository extends JpaRepository<ApartmentBuilding, Long>{
 
 }
