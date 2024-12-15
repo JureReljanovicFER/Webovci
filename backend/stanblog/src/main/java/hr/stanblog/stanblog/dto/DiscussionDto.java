@@ -6,8 +6,6 @@ import jakarta.persistence.*;
 
 
 public class DiscussionDto {
-
-
         private AppUser creatorUserId;
 
         private String title;

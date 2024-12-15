@@ -3,7 +3,7 @@
   "info": {
     "title": "Discussions API",
     "description": "API for managing discussions",
-    "version": "1.0"
+    "version": "1.0.0"
   },
   "paths": {
     "/discussions": {
