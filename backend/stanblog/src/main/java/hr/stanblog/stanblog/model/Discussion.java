@@ -16,8 +16,7 @@ public class Discussion {
     @ManyToOne
     @JoinColumn(name = "apartmentBuildingId")
     ApartmentBuilding apartmentBuildingId;
-    @OneToMany(mappedBy = "discussion", cascade = CascadeType.ALL, orphanRemoval = true)
-    UserDiscussion userDiscussion;
+
 
 
 
