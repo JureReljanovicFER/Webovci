@@ -74,7 +74,13 @@ const BuildingsChoice = ({ data ,user }) => {
             setCity("");
             setNoia("");
             setZipCode("");
-        } catch (error) {}
+        } catch (error) {
+            toggleAddNew();
+            setAddress("");
+            setCity("");
+            setNoia("");
+            setZipCode("");
+        }
     };
 
     const toggleAddNew = () => {

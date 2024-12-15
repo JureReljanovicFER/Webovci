@@ -71,6 +71,23 @@
     height: 55vh;
     overflow-y: scroll;
 }
+.members_list_p::-webkit-scrollbar {
+    width: 10px; 
+    height: 50vh;
+  }
+  .members_list_p::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+    border-radius: 5px;
+  }
+  .members_list_p::-webkit-scrollbar-thumb {
+    background: #888; 
+    border-radius: 5px;
+    height: 50vh;
+  }
+  
+  .members_list_p::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+  }
 .add_member_btn{
     border-radius: 25px;
     width: 8vw;
@@ -155,3 +172,23 @@
 .closeNewMember:hover{
     background-color: darkgray;
 }
+.sve_diskusije{
+ overflow-y: scroll;
+}
+.sve_diskusije::-webkit-scrollbar {
+    width: 10px; 
+    height: 50vh;
+  }
+  .sve_diskusije::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+    border-radius: 5px;
+  }
+  .sve_diskusije::-webkit-scrollbar-thumb {
+    background: #888; 
+    border-radius: 5px;
+    height: 50vh;
+  }
+  
+  .sve_diskusije::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+  }

@@ -12,7 +12,8 @@ const Buildings = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const res = await fetch("https://webovci.onrender.com/api/apartment-buildings/"+id);
+                //const res = await fetch("https://webovci.onrender.com/api/apartment-buildings/"+id);
+                const res = await fetch("http://localhost:8000/ApartmentBuildings");
                 const data = await res.json();
                 setData(data);
             } catch (error) {
@@ -28,6 +29,7 @@ const Buildings = () => {
         const fetchUser = async () => {
             try {
                 const res1 = await fetch("https://webovci.onrender.com/api/users/"+id);
+                
                 const user = await res1.json();
                 setUser(user);
             } catch (error) {

@@ -15,6 +15,22 @@ const Building = () => {
     const [data1, setData] = useState([]);
     const [loading, setLoading] = useState(true);
 
+    const[dataDisk, setDataDisk] = useState([]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const res = await fetch("http://localhost:8000/Diskusije");
+                const data = await res.json();
+                setDataDisk(data);
+            } catch (error) {
+                console.log("Error fetching data:", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchData();
+    }, []);
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -99,6 +115,16 @@ const Building = () => {
                 <div className="diskusije">
                     <p>NALAZIS SE U DISKUSIJ ZGRADE {data.id}</p>
                     <hr></hr>
+                    <div className="sve_diskusije">
+                    {dataDisk.map((item,index)=>(
+                        <div className="diskusija" key={index}>
+                            <h1 key={index}>{JSON.stringify(item.title)} </h1>
+                            <p key={index}> {JSON.stringify(item.description)}</p>
+                        </div>
+                    ))}
+                    </div>
+
+
                 </div>
                 <div className="members_list">
                     <p>popis članova zgrade</p>

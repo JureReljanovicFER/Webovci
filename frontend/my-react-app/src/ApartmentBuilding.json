@@ -142,5 +142,35 @@
             "prezime":"matić",
             "email":"matej@matic.com"
         }
+    ],
+    "Diskusije":[
+        {   
+            "id":"1",
+            "title":"diskusija 1",
+            "description":"ovdje je prva diskusija"
+        },
+        {
+            "id":"2",
+            "title":"diskusija 2",
+            "description":"ovdje je 2. diskusija"
+        }
+        ,
+        {
+            "id":"3",
+            "title":"diskusija 3",
+            "description":"ovdje je 3. diskusija"
+        }
+        ,
+        {
+            "id":"4",
+            "title":"diskusija 4",
+            "description":"ovdje je 4. diskusija"
+        }
+        ,
+        {
+            "id":"5",
+            "title":"diskusija 5",
+            "description":"ovdje je 5. diskusija"
+        }
     ]
 }
