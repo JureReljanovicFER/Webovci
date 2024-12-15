@@ -1,0 +1,94 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Discussions API",
+    "description": "API for managing discussions",
+    "version": "1.0"
+  },
+  "paths": {
+    "/discussions": {
+      "get": {
+        "summary": "Get all discussions",
+        "description": "Returns a list of all discussions",
+        "operationId": "getAllDiscussions",
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved list of discussions",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Discussion"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Discussion": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "creatorUserId": {
+          "type": "object",
+          "$ref": "#/definitions/AppUser"
+        },
+        "apartmentBuildingId": {
+          "type": "object",
+          "$ref": "#/definitions/ApartmentBuilding"
+        }
+      }
+    },
+    "AppUser": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string",
+          "format": "email"
+        },
+        "userRole": {
+          "type": "string",
+          "enum": ["ADMIN", "NORMAL_USER"]
+        }
+      }
+    },
+    "ApartmentBuilding": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "address": {
+          "type": "string"
+        },
+        "zipCode": {
+          "type": "integer"
+        },
+        "city": {
+          "type": "string"
+        },
+        "numberOfIndividualApartments": {
+          "type": "integer"
+        }
+      }
+    }
+  }
+}
