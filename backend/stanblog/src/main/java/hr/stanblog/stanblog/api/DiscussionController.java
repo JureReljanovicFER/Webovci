@@ -3,6 +3,8 @@ package hr.stanblog.stanblog.api;
 
 import hr.stanblog.stanblog.model.Discussion;
 import hr.stanblog.stanblog.service.DiscussionService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,7 +22,8 @@ public class DiscussionController {
     }
 
     @GetMapping
-    public List<Discussion> getAllDiscussions(){
-        return discussionService.getAllDiscussions();
+    public ResponseEntity<List<Discussion>> getAllDiscussions(){
+        return new ResponseEntity<List<Discussion>>(discussionService.getAllDiscussions(), HttpStatus.OK);
+
     }
 }
