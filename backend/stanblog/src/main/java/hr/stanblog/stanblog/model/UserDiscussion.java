@@ -1,12 +1,21 @@
 package hr.stanblog.stanblog.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table
 public class UserDiscussion {
     @Id
-     Long id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    Long id;
+    @ManyToOne
+    @JoinColumn(name = "userApartmentBuildingId")
+    UserApartmentBuilding userApartmentBuildingId;
+    @ManyToOne
+    @JoinColumn(name = "discussionId")
+    Discussion discussionId;
+
+    boolean canUserSeeDiscussion;
+    boolean canUserParticipateInDiscussion;
+
 }
