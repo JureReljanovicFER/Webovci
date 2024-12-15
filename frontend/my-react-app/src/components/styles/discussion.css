@@ -1,0 +1,32 @@
+.discussion_footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: #4355c6;
+  color: white;
+  text-align: center;
+  padding: 1%;
+}
+.discussion_comment {
+  background-color: white;
+  color: black;
+  cursor: pointer;
+  padding: 0.5%;
+  border: black;
+}
+.discussion_btn {
+  background-color: white;
+  color: black;
+  cursor: pointer;
+  border-radius: 12px;
+  padding: 0.5%;
+  border: none;
+}
+.discussion_container {
+    display:flex;
+    padding:1.5%;
+}
+.discussion_title {
+    color:#4355c6;
+}

@@ -49,10 +49,10 @@ const router = createBrowserRouter([
     path: "/login",
     element: <Login />,
   },
-  // {
-  //   path: "/diss",
-  //   element: <DiscussionPage />,
-  // }
+  {
+    path: "/diss",
+    element: <DiscussionPage />,
+  }
 ]);
 
 createRoot(document.getElementById("root")).render(
