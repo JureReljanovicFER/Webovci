@@ -20,11 +20,10 @@ public class DiscussionService {
     }
 
     public boolean addNewDiscussion(DiscussionDto DTO) {
-        discussionRepository.save(new Discussion(DTO.get));
+        discussionRepository.save(new Discussion(DTO.getCreatorUserId(), DTO.getTitle(), DTO.getDescription(), DTO.getApartmentBuildingId()));
 
 
-
-
+        return false;
 
     }
 

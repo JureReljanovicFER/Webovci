@@ -10,13 +10,15 @@ public class DiscussionDto {
 
         private AppUser creatorUserId;
 
+        private String title;
         private String description;
 
         private ApartmentBuilding apartmentBuildingId;
         private Visibility[] visibilities;
 
-        public DiscussionDto(AppUser creatorUserId, String description, ApartmentBuilding apartmentBuildingId, Visibility[] visibilities) {
+        public DiscussionDto(AppUser creatorUserId, String title, String description, ApartmentBuilding apartmentBuildingId, Visibility[] visibilities) {
                 this.creatorUserId = creatorUserId;
+                this.title = title;
                 this.description = description;
                 this.apartmentBuildingId = apartmentBuildingId;
                 this.visibilities = visibilities;
@@ -31,6 +33,14 @@ public class DiscussionDto {
 
         public void setCreatorUserId(AppUser creatorUserId) {
                 this.creatorUserId = creatorUserId;
+        }
+
+        public String getTitle() {
+                return title;
+        }
+
+        public void setTitle(String title) {
+                this.title = title;
         }
 
         public String getDescription() {
