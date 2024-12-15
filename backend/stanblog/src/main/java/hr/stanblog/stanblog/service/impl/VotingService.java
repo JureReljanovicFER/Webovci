@@ -3,7 +3,6 @@ package hr.stanblog.stanblog.service.impl;
 import hr.stanblog.stanblog.dao.DiscussionRepository;
 import hr.stanblog.stanblog.dao.UserVotingRepository;
 import hr.stanblog.stanblog.dao.VotingRepository;
-import hr.stanblog.stanblog.dto.ApartmentBuildingDto;
 import hr.stanblog.stanblog.dto.UserVotingDto;
 import hr.stanblog.stanblog.dto.VotingDto;
 import hr.stanblog.stanblog.model.*;
@@ -25,7 +24,12 @@ public class VotingService {
     private UserVotingRepository userVotingRepository;
 
     public Voting saveVoting(VotingDto votingDto) {
-        Discussion discussion = discussionRepository.findById(votingDto.getDiscussionDto().getId());
+        Optional<Discussion> discussionOptional = discussionRepository.findById(votingDto.getDiscussionId());
+        Discussion discussion = discussionOptional.orElse(null);
+
+        if (discussion == null) {
+            throw new IllegalArgumentException("Discussion not found.");
+        }
 
         Voting voting = new Voting(
                 votingDto.getTitle(),

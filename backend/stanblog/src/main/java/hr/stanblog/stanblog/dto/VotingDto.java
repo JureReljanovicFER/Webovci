@@ -12,7 +12,14 @@ public class VotingDto {
 
     private String negativeAnswerLabel;
 
-    private DiscussionDto discussionDto;
+    private Long discussionId;
+
+    public VotingDto(String title, String pozitiveAnswerLabel, String negativeAnswerLabel, Long discussionId) {
+        this.title = title;
+        this.pozitiveAnswerLabel = pozitiveAnswerLabel;
+        this.negativeAnswerLabel = negativeAnswerLabel;
+        this.discussionId = discussionId;
+    }
 
     public String getTitle() {
         return title;
@@ -38,11 +45,11 @@ public class VotingDto {
         this.negativeAnswerLabel = negativeAnswerLabel;
     }
 
-    public DiscussionDto getDiscussionDto() {
-        return discussionDto;
+    public Long getDiscussionId() {
+        return discussionId;
     }
 
-    public void setDiscussionDto(DiscussionDto discussionDto) {
-        this.discussionDto = discussionDto;
+    public void setDiscussionId(Long discussionId) {
+        this.discussionId = discussionId;
     }
 }
