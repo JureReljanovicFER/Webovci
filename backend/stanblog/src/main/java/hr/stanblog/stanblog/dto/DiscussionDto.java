@@ -65,7 +65,7 @@ public class DiscussionDto {
                 this.visibilities = visibilities;
         }
 
-        public class Visibility {
+        public static class Visibility {
                 private Long userId;
                 private boolean canUserSee;
                 private boolean canUserParticipate;

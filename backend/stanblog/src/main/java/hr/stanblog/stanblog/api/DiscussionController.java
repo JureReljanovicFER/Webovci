@@ -48,6 +48,32 @@ public class DiscussionController {
 
 
         return null;
+
+        /**
+         * primjer dodavanja diskusije
+         * {
+         *   "creatorUserId": {
+         *     "id": 1
+         *   },
+         *   "title": "Example Title",
+         *   "description": "Example Description",
+         *   "apartmentBuildingId": {
+         *     "id": 1
+         *   },
+         *   "visibilities": [
+         *     {
+         *       "userId": 1,
+         *       "canUserSee": true,
+         *       "canUserParticipate": true
+         *     },
+         *     {
+         *       "userId": 2,
+         *       "canUserSee": true,
+         *       "canUserParticipate": true
+         *     }
+         *   ]
+         * }
+         */
     }
 
 
