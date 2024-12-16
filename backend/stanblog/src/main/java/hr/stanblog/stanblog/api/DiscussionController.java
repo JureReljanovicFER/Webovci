@@ -1,4 +1,5 @@
 package hr.stanblog.stanblog.api;
+import hr.stanblog.stanblog.exceptions.ResponseObj;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -39,7 +40,11 @@ public class DiscussionController {
     @RequestMapping("/addNew")
     @PostMapping
 
-    public ResponseEntity<String> addNew(@RequestBody DiscussionDto discussionDto) {
+    public ResponseEntity<ResponseObj> addNew(@RequestBody DiscussionDto discussionDto) {
+
+        if (discussionService.addNewDiscussion(discussionDto)) {
+            return new ResponseEntity<>(new ResponseObj("Diskusija uspjesno dodana"), HttpStatus.OK);
+        }
 
 
         return null;
