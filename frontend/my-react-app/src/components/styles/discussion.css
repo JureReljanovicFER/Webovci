@@ -13,7 +13,8 @@
   color: black;
   cursor: pointer;
   padding: 0.5%;
-  border: black;
+  border: black 1px solid;
+  border-radius:12px;
 }
 .discussion_btn {
   background-color: white;
@@ -26,6 +27,7 @@
 .discussion_container {
     display:flex;
     padding:1.5%;
+    flex-direction: column;
 }
 .discussion_title {
     color:#4355c6;
