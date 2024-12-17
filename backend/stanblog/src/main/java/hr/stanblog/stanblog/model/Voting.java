@@ -2,6 +2,8 @@ package hr.stanblog.stanblog.model;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table
 public class Voting {
@@ -15,8 +17,10 @@ public class Voting {
 
     private String negativeAnswerLabel;
 
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<UserVoting> userVotings;
+
     @OneToOne
-    @JoinColumn(name = "discussionId")
     private Discussion discussion;
 
     public Voting(String title, String pozitiveAnswerLabel, String negativeAnswerLabel, Discussion discussion) {

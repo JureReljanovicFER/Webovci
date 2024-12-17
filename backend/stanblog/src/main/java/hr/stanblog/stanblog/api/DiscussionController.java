@@ -16,6 +16,7 @@ import java.util.List;
 @Api(tags = "Discussions")
 @RestController
 @RequestMapping("/discussions")
+@CrossOrigin(origins = {"http://localhost:5173", "https://jazzy-madeleine-64561a.netlify.app", "https://webovci-1.onrender.com"})
 public class DiscussionController {
 
     private final DiscussionService discussionService;

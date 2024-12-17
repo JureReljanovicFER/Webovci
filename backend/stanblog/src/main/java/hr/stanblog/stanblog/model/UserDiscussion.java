@@ -8,19 +8,16 @@ public class UserDiscussion {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     Long id;
-    @ManyToOne
-    @JoinColumn(name = "userApartmentBuildingId")
-    UserApartmentBuilding userApartmentBuildingId;
+
     @ManyToOne
     @JoinColumn(name = "discussionId")
-    Discussion discussionId;
+    Discussion discussion;
 
     boolean canUserSeeDiscussion;
     boolean canUserParticipateInDiscussion;
 
-    public UserDiscussion(UserApartmentBuilding userApartmentBuildingId, Discussion discussionId, boolean canUserSeeDiscussion, boolean canUserParticipateInDiscussion) {
-        this.userApartmentBuildingId = userApartmentBuildingId;
-        this.discussionId = discussionId;
+    public UserDiscussion(Discussion discussion, boolean canUserSeeDiscussion, boolean canUserParticipateInDiscussion) {
+        this.discussion = discussion;
         this.canUserSeeDiscussion = canUserSeeDiscussion;
         this.canUserParticipateInDiscussion = canUserParticipateInDiscussion;
     }
@@ -36,20 +33,12 @@ public class UserDiscussion {
         this.id = id;
     }
 
-    public UserApartmentBuilding getUserApartmentBuildingId() {
-        return userApartmentBuildingId;
-    }
-
-    public void setUserApartmentBuildingId(UserApartmentBuilding userApartmentBuildingId) {
-        this.userApartmentBuildingId = userApartmentBuildingId;
-    }
-
     public Discussion getDiscussionId() {
-        return discussionId;
+        return discussion;
     }
 
     public void setDiscussionId(Discussion discussionId) {
-        this.discussionId = discussionId;
+        this.discussion = discussionId;
     }
 
     public boolean isCanUserSeeDiscussion() {

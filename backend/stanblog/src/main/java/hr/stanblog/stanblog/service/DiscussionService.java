@@ -36,7 +36,7 @@ public class DiscussionService {
             Optional<UserApartmentBuilding> pom2 = userApartmentBuildingRepository.findById(elem.getUserId());
 
             if (pom2.isPresent()) {
-                userDiscussionRepository.save(new UserDiscussion(pom2.get(), pom, elem.isCanUserSee(), elem.isCanUserParticipate()));
+                userDiscussionRepository.save(new UserDiscussion(pom, elem.isCanUserSee(), elem.isCanUserParticipate()));
             }
         }
 

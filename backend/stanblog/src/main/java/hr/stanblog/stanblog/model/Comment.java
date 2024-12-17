@@ -1,12 +1,17 @@
 package hr.stanblog.stanblog.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 @Table
 public class Comment {
     @Id
-     Long id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+
+    private String text;
+
+
 }

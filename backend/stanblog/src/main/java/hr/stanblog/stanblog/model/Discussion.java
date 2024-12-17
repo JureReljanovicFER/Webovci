@@ -2,6 +2,8 @@ package hr.stanblog.stanblog.model;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table
 public class Discussion {
@@ -10,20 +12,28 @@ public class Discussion {
     Long id;
     @ManyToOne
     @JoinColumn(name = "creatorUserId")
-    AppUser creatorUserId;
+    AppUser creatorUser;
 
     String title;
     String description;
     @ManyToOne
     @JoinColumn(name = "apartmentBuildingId")
-    ApartmentBuilding apartmentBuildingId;
+    ApartmentBuilding apartmentBuilding;
 
+    @OneToMany
+    List<UserDiscussion> userDiscussions;
+
+    @OneToMany
+    List<Comment> comments;
+
+    @OneToOne
+    Voting voting;
 
     public Discussion(AppUser creatorUserId, String title, String description, ApartmentBuilding apartmentBuildingId) {
-        this.creatorUserId = creatorUserId;
+        this.creatorUser = creatorUserId;
         this.title = title;
         this.description = description;
-        this.apartmentBuildingId = apartmentBuildingId;
+        this.apartmentBuilding = apartmentBuildingId;
     }
 
     public Discussion() {
@@ -38,11 +48,11 @@ public class Discussion {
     }
 
     public AppUser getCreatorUserId() {
-        return creatorUserId;
+        return creatorUser;
     }
 
     public void setCreatorUserId(AppUser creatorUserId) {
-        this.creatorUserId = creatorUserId;
+        this.creatorUser = creatorUserId;
     }
 
     public String getTitle() {
@@ -62,10 +72,10 @@ public class Discussion {
     }
 
     public ApartmentBuilding getApartmentBuildingId() {
-        return apartmentBuildingId;
+        return apartmentBuilding;
     }
 
     public void setApartmentBuildingId(ApartmentBuilding apartmentBuildingId) {
-        this.apartmentBuildingId = apartmentBuildingId;
+        this.apartmentBuilding = apartmentBuildingId;
     }
 }

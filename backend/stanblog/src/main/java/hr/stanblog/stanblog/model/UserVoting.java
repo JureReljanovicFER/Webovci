@@ -9,7 +9,13 @@ public class UserVoting {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    private AppUser user;
+
     private boolean answerPozitive;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Voting voting;
 
     public UserVoting(Long id, boolean answerPozitive) {
         this.id = id;
