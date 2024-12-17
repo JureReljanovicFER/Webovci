@@ -17,11 +17,19 @@
   border-radius:12px; 
 }
 .comment_contents{
-  
+  /* color:#4355c6; */
 }
 .discussion_btn {
   background-color: white;
   color: black;
+  cursor: pointer;
+  border-radius: 12px;
+  padding: 0.5%;
+  border: none;
+}
+.discussion_btn2 {
+  background-color: #4355c6;
+  color: white;
   cursor: pointer;
   border-radius: 12px;
   padding: 0.5%;

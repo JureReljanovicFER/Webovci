@@ -7,7 +7,22 @@ export default function DiscussionPage() {
   const params = useParams();
   console.log(params);
 
-//data ovdje definiran za testiranje funkcionalnosti, treba se dohvatiti sa backenda
+  // useEffect(() => {
+  //     const fetchData = async () => {
+  //         try {
+  //             const res = await fetch("http://localhost:8000/Popisclanova");
+  //             const data = await res.json();
+  //             setData(data);
+  //         } catch (error) {
+  //             console.log("Error fetching data:", error);
+  //         } finally {
+  //             setLoading(false);
+  //         }
+  //     };
+  //     fetchData();
+  // }, []);
+
+  //data ovdje definiran za testiranje funkcionalnosti, treba se dohvatiti sa backenda
   const [data, setData] = useState({
     title: "diskusija 1",
     description: "description of discussion",
@@ -37,7 +52,7 @@ export default function DiscussionPage() {
 
   const addReply = (index) => {
     const replyText = replyInputs[index];
-    if (!replyText) return; 
+    if (!replyText) return;
 
     setData((prevData) => {
       const newComments = [...prevData.komentari];
@@ -84,13 +99,15 @@ export default function DiscussionPage() {
       <h1 className="discussion_title">{data.title}</h1>
       <p>{data.description}</p>
       <div className="discussion_container">
+        <h3 className="discussion_title">Komentari</h3>
         {data.komentari.map((comment, index) => (
           <div key={index} className="discussion_comment">
-            <div>
+            <div className = "comment_contents">
               <p>
                 <strong>{comment.user}:</strong> {comment.text}
               </p>
             </div>
+            <hr></hr>
             {comment.replies.length > 0 && (
               <div className="replies_container">
                 {comment.replies.map((reply, replyIndex) => (
@@ -110,7 +127,7 @@ export default function DiscussionPage() {
                 onChange={(e) => handleInputChange(index, e.target.value)}
                 placeholder="Type your reply here..."
               />
-              <button onClick={() => addReply(index)}>Reply</button>
+              <button onClick={() => addReply(index)} className="discussion_btn2">Reply</button>
             </div>
           </div>
         ))}
