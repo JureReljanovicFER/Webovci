@@ -10,5 +10,6 @@ import java.util.Optional;
 
 @Repository
 public interface VotingRepository extends JpaRepository<Voting, Long> {
+    Voting findByDiscussionId(Long discussionId);
 
 }

@@ -8,7 +8,7 @@ import java.util.List;
 @Table
 public class Discussion {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
     @ManyToOne
     @JoinColumn(name = "creatorUserId")
@@ -20,23 +20,20 @@ public class Discussion {
     @JoinColumn(name = "apartmentBuildingId")
     ApartmentBuilding apartmentBuilding;
 
-    @OneToMany
-    List<UserDiscussion> userDiscussions;
-
-    @OneToMany
-    List<Comment> comments;
-
-    @OneToOne
-    Voting voting;
-
-    public Discussion(AppUser creatorUserId, String title, String description, ApartmentBuilding apartmentBuildingId) {
-        this.creatorUser = creatorUserId;
-        this.title = title;
-        this.description = description;
-        this.apartmentBuilding = apartmentBuildingId;
+    public AppUser getCreatorUser() {
+        return creatorUser;
     }
 
-    public Discussion() {
+    public void setCreatorUser(AppUser creatorUser) {
+        this.creatorUser = creatorUser;
+    }
+
+    public ApartmentBuilding getApartmentBuilding() {
+        return apartmentBuilding;
+    }
+
+    public void setApartmentBuilding(ApartmentBuilding apartmentBuilding) {
+        this.apartmentBuilding = apartmentBuilding;
     }
 
     public Long getId() {
@@ -45,14 +42,6 @@ public class Discussion {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public AppUser getCreatorUserId() {
-        return creatorUser;
-    }
-
-    public void setCreatorUserId(AppUser creatorUserId) {
-        this.creatorUser = creatorUserId;
     }
 
     public String getTitle() {
@@ -71,11 +60,14 @@ public class Discussion {
         this.description = description;
     }
 
-    public ApartmentBuilding getApartmentBuildingId() {
-        return apartmentBuilding;
+    public Discussion(AppUser creatorUser, String title, String description, ApartmentBuilding apartmentBuilding) {
+        this.creatorUser = creatorUser;
+        this.title = title;
+        this.description = description;
+        this.apartmentBuilding = apartmentBuilding;
     }
 
-    public void setApartmentBuildingId(ApartmentBuilding apartmentBuildingId) {
-        this.apartmentBuilding = apartmentBuildingId;
+    public Discussion() {
     }
+
 }

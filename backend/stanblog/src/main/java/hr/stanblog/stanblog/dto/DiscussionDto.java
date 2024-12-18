@@ -1,36 +1,51 @@
 package hr.stanblog.stanblog.dto;
 
-import hr.stanblog.stanblog.model.ApartmentBuilding;
-import hr.stanblog.stanblog.model.AppUser;
-import jakarta.persistence.*;
+import hr.stanblog.stanblog.model.*;
+
+import java.util.List;
 
 
 public class DiscussionDto {
-        private AppUser creatorUserId;
+        private Long id;
+
+        private UserDto creatorUser;
 
         private String title;
         private String description;
 
-        private ApartmentBuilding apartmentBuildingId;
-        private Visibility[] visibilities;
+        private ApartmentBuildingDto apartmentBuilding;
 
-        public DiscussionDto(AppUser creatorUserId, String title, String description, ApartmentBuilding apartmentBuildingId, Visibility[] visibilities) {
-                this.creatorUserId = creatorUserId;
+        private List<DiscussionVisibilityDto> discussionVisibilities;
+
+        private VotingDto voting;
+
+        private List<CommentDto> comments;
+
+        public DiscussionDto(Long id, UserDto creatorUser, String title, String description, ApartmentBuildingDto apartmentBuilding, List<DiscussionVisibilityDto> discussionVisibilities, VotingDto voting, List<CommentDto> comments) {
+                this.id = id;
+                this.creatorUser = creatorUser;
                 this.title = title;
                 this.description = description;
-                this.apartmentBuildingId = apartmentBuildingId;
-                this.visibilities = visibilities;
+                this.apartmentBuilding = apartmentBuilding;
+                this.discussionVisibilities = discussionVisibilities;
+                this.voting = voting;
+                this.comments = comments;
         }
 
-        public DiscussionDto() {
+        public Long getId() {
+                return id;
         }
 
-        public AppUser getCreatorUserId() {
-                return creatorUserId;
+        public void setId(Long id) {
+                this.id = id;
         }
 
-        public void setCreatorUserId(AppUser creatorUserId) {
-                this.creatorUserId = creatorUserId;
+        public UserDto getCreatorUser() {
+                return creatorUser;
+        }
+
+        public void setCreatorUser(UserDto creatorUser) {
+                this.creatorUser = creatorUser;
         }
 
         public String getTitle() {
@@ -49,62 +64,35 @@ public class DiscussionDto {
                 this.description = description;
         }
 
-        public ApartmentBuilding getApartmentBuildingId() {
-                return apartmentBuildingId;
+        public ApartmentBuildingDto getApartmentBuilding() {
+                return apartmentBuilding;
         }
 
-        public void setApartmentBuildingId(ApartmentBuilding apartmentBuildingId) {
-                this.apartmentBuildingId = apartmentBuildingId;
+        public void setApartmentBuilding(ApartmentBuildingDto apartmentBuilding) {
+                this.apartmentBuilding = apartmentBuilding;
         }
 
-        public Visibility[] getVisibilities() {
-                return visibilities;
+        public List<DiscussionVisibilityDto> getDiscussionVisibilities() {
+                return discussionVisibilities;
         }
 
-        public void setVisibilities(Visibility[] visibilities) {
-                this.visibilities = visibilities;
+        public void setDiscussionVisibilities(List<DiscussionVisibilityDto> discussionVisibilities) {
+                this.discussionVisibilities = discussionVisibilities;
         }
 
-        public static class Visibility {
-                private Long userId;
-                private boolean canUserSee;
-                private boolean canUserParticipate;
-
-                public Visibility(Long userId, boolean canUserSee, boolean canUserParticipate) {
-                        this.userId = userId;
-                        this.canUserSee = canUserSee;
-                        this.canUserParticipate = canUserParticipate;
-                }
-
-                public Visibility() {
-                }
-
-                public Long getUserId() {
-                        return userId;
-                }
-
-                public void setUserId(Long userId) {
-                        this.userId = userId;
-                }
-
-                public boolean isCanUserSee() {
-                        return canUserSee;
-                }
-
-                public void setCanUserSee(boolean canUserSee) {
-                        this.canUserSee = canUserSee;
-                }
-
-                public boolean isCanUserParticipate() {
-                        return canUserParticipate;
-                }
-
-                public void setCanUserParticipate(boolean canUserParticipate) {
-                        this.canUserParticipate = canUserParticipate;
-                }
+        public VotingDto getVoting() {
+                return voting;
         }
 
+        public void setVoting(VotingDto voting) {
+                this.voting = voting;
+        }
 
+        public List<CommentDto> getComments() {
+                return comments;
+        }
 
-
+        public void setComments(List<CommentDto> comments) {
+                this.comments = comments;
+        }
 }

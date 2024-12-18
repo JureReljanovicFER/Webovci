@@ -1,4 +1,5 @@
 package hr.stanblog.stanblog.api;
+import hr.stanblog.stanblog.dto.DiscussionBasicDto;
 import hr.stanblog.stanblog.exceptions.ResponseObj;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -34,33 +35,41 @@ public class DiscussionController {
 
     @RequestMapping("/getAll")
     @GetMapping
-    public ResponseEntity<List<Discussion>> getAllDiscussions() {
-        return new ResponseEntity<List<Discussion>>(discussionService.getAllDiscussions(), HttpStatus.OK);
+    public ResponseEntity<List<DiscussionBasicDto>> getAllDiscussions() {
+        return new ResponseEntity<List<DiscussionBasicDto>>(discussionService.getAllDiscussionsBasic(), HttpStatus.OK);
     }
+
+    @RequestMapping("/{id}")
+    @GetMapping
+    public ResponseEntity<DiscussionDto> getAllDiscussionsFull(@PathVariable Long id) {
+        try {
+            DiscussionDto discussionDto = discussionService.getDiscussionsById(id);
+            return new ResponseEntity<>(discussionDto, HttpStatus.OK);
+        }
+        catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
+    }
+
 
     @RequestMapping("/addNew")
     @PostMapping
 
-    public ResponseEntity<ResponseObj> addNew(@RequestBody DiscussionDto discussionDto) {
-
-        if (discussionService.addNewDiscussion(discussionDto)) {
-            return new ResponseEntity<>(new ResponseObj("Diskusija uspjesno dodana"), HttpStatus.OK);
+    public ResponseEntity<ResponseObj> addNew(@RequestBody DiscussionBasicDto discussionDto) {
+        try {
+            Discussion addedDiscussion = discussionService.addNewDiscussion(discussionDto);
+            return new ResponseEntity<>(new ResponseObj("Diskusija uspjesno dodana", addedDiscussion), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(new ResponseObj("Diskusija nije mogla biti dodana", null), HttpStatus.BAD_REQUEST);
         }
-
-
-        return null;
 
         /**
          * primjer dodavanja diskusije
          * {
-         *   "creatorUserId": {
-         *     "id": 1
-         *   },
+         *   "creatorUserId": 1,
          *   "title": "Example Title",
          *   "description": "Example Description",
-         *   "apartmentBuildingId": {
-         *     "id": 1
-         *   },
+         *   "apartmentBuildingId": 1,
          *   "visibilities": [
          *     {
          *       "userId": 1,

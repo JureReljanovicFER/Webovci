@@ -37,7 +37,6 @@ public class CommentService {
         AppUser user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found!"));
 
         Comment reply = new Comment();
-        reply.setParentComment(parentComment);
         reply.setAuthor(user);
         reply.setContent(content);
 

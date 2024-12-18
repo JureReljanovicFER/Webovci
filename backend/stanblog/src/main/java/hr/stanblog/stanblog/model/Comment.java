@@ -8,7 +8,8 @@ import java.time.LocalDateTime;
 @Table
 public class Comment {
     @Id
-     Long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @ManyToOne
     private Discussion discussion;
@@ -16,12 +17,13 @@ public class Comment {
     @ManyToOne
     private AppUser author;
 
-    @ManyToOne
-    private Comment parentComment;
-
     private String content;
 
     private final LocalDateTime createdAt = LocalDateTime.now();
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
 
     public Long getId() {
         return id;
@@ -47,13 +49,6 @@ public class Comment {
         this.author = author;
     }
 
-    public Comment getParentComment() {
-        return parentComment;
-    }
-
-    public void setParentComment(Comment parentComment) {
-        this.parentComment = parentComment;
-    }
 
     public String getContent() {
         return content;
