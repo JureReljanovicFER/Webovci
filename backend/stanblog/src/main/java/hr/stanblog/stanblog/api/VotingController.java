@@ -22,12 +22,12 @@ public class VotingController {
     }
 
     @PostMapping("/new")
-    public ResponseEntity<ResponseObj> createVoting(@RequestBody VotingDto votingDto) {
+    public ResponseEntity<Voting> createVoting(@RequestBody VotingDto votingDto) {
         try {
             Voting voting = votingService.saveVoting(votingDto);
-            return new ResponseEntity<>(new ResponseObj("Glasanje kreirano.", voting), HttpStatus.CREATED);
+            return new ResponseEntity<>(voting, HttpStatus.CREATED);
         } catch (Exception e) {
-            return new ResponseEntity<>(new ResponseObj("Glasanje nije moglo biti kreairano.", null), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
     }
 
