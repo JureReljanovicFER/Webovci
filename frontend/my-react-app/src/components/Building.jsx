@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Header from "./Header";
 import "./styles/Building.css";
 import { Link } from "react-router-dom";
+import { FaPlus } from "react-icons/fa";
 const Building = () => {
     const location = useLocation();
     const { data } = location.state || {};
@@ -52,6 +53,11 @@ const Building = () => {
         setAddNewMember((prev) => !prev);
     };
 
+    const[dodavanjeDiskusije,setDodavanjeDiskusije] = useState(false);
+    const toggleDodavanjeDiskusije = () =>{
+        setDodavanjeDiskusije((prev) => !prev);
+    }
+
     const targetDivRef = useRef(null);
 
     useEffect(() => {
@@ -97,6 +103,12 @@ const Building = () => {
             console.error("Error:", error);
         }
     };
+    const [ImeDiskusije,setImeDiskusije] = useState("");
+    const handleDiskusije = async (event) => {
+        event.preventDefault();
+        toggleDodavanjeDiskusije();
+    }
+
 
     return (
         <>
@@ -113,8 +125,10 @@ const Building = () => {
                     </div>
                     <button onClick={toggleDrugi}>{pokaziDrugi ? "Sakrij" : "Pokaži više"}</button>
                 </div>
-                <div className="dodavanje_diskusije">
-                    
+                <div className="dodavanje_diskusije" onClick={toggleDodavanjeDiskusije}>
+                    <p>Dodajte diskusiju</p>
+                    <hr></hr>
+                    <FaPlus size={100} opacity={0.7} />
                 </div>
                 <div className="diskusije">
                     <p>NALAZIS SE U DISKUSIJ ZGRADE {data.id}</p>
@@ -129,8 +143,6 @@ const Building = () => {
                         </Link>
                     ))}
                     </div>
-
-
                 </div>
                 <div className="members_list">
                     <p>popis članova zgrade</p>
@@ -165,6 +177,25 @@ const Building = () => {
                         X
                     </buton>
                 </div>
+            )}
+            {dodavanjeDiskusije &&(
+                <div className="addNewMember" ref={targetDivRef}>
+                <h2>dodavanje diskusije</h2>
+                <hr></hr>
+                <form onSubmit={handleDiskusije}>
+                    <div className="formaAddNew">
+                        <label>
+                            ime nove diskusije:
+                            <input type="text" value={ImeDiskusije} onChange={(e) => setImeDiskusije(e.target.value)}></input>
+                        </label>
+                        <br />
+                        <button type="submit">Submit</button>
+                    </div>
+                </form>
+                <buton className="closeNewMember" onClick={toggleDodavanjeDiskusije}>
+                    X
+                </buton>
+            </div>
             )}
         </>
     );
