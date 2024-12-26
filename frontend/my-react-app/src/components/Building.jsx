@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import Header from "./Header";
 import "./styles/Building.css";
+import { Link } from "react-router-dom";
 const Building = () => {
     const location = useLocation();
     const { data } = location.state || {};
@@ -117,10 +118,12 @@ const Building = () => {
                     <hr></hr>
                     <div className="sve_diskusije">
                     {dataDisk.map((item,index)=>(
-                        <div className="diskusija" key={index}>
-                            <h1 key={index}>{JSON.stringify(item.title)} </h1>
-                            <p key={index}> {JSON.stringify(item.description)}</p>
-                        </div>
+                        <Link key={index} className="odabirDiskusijeLinkk" to={`${item.id}`} state={{ data: item }}>
+                            <div className="diskusija" key={index}>
+                                <h1 key={index}>{JSON.stringify(item.title)} </h1>
+                                <p key={index}> {JSON.stringify(item.description)}</p>
+                            </div>
+                        </Link>
                     ))}
                     </div>
 
