@@ -113,12 +113,15 @@ const Building = () => {
                     </div>
                     <button onClick={toggleDrugi}>{pokaziDrugi ? "Sakrij" : "Pokaži više"}</button>
                 </div>
+                <div className="dodavanje_diskusije">
+                    
+                </div>
                 <div className="diskusije">
                     <p>NALAZIS SE U DISKUSIJ ZGRADE {data.id}</p>
                     <hr></hr>
                     <div className="sve_diskusije">
                     {dataDisk.map((item,index)=>(
-                        <Link key={index} className="odabirDiskusijeLinkk" to={`${item.id}`} state={{ data: item }}>
+                        <Link key={index} className="odabirDiskusijeLinkk" to={`${location.pathname}/discussions/${item.id}`} state={{ data: item }}>
                             <div className="diskusija" key={index}>
                                 <h1 key={index}>{JSON.stringify(item.title)} </h1>
                                 <p key={index}> {JSON.stringify(item.description)}</p>

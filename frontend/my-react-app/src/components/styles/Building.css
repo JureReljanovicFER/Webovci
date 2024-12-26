@@ -1,12 +1,15 @@
 
 .middle{
     height:90vh;
-    display: flex;
-    flex-direction: row;
+    display: grid;
+    grid-template-columns: 11vw 65vw 20vw;
+    grid-template-rows: repeat(10,10vh);
     justify-content: space-between;
     background-color: #FAF9F6;
 }
 .building_description{
+    grid-row: 1/5;
+    grid-column: 1;
     height: min-content;
     width: 11vw;
     background-color: white;
@@ -48,8 +51,10 @@
     opacity: 1; 
   }
 .diskusije{
-    height:86vh;
-    width: 69vw;
+  grid-row: 1/10;
+  grid-column: 2;
+    width: 65vw;
+    height: 86vh;
     background-color: white;
     border-radius: 3%;
     border: 2px solid darkgray;
@@ -57,7 +62,8 @@
     margin-left: 1vw;
 }
 .members_list{
-    height: 70vh;
+  grid-column: 3;
+  grid-row: 1/9;
     width: 18vw;
     background-color: white;
     border-radius: 3%;
@@ -207,4 +213,19 @@
   .diskusija:hover{
     background-color: darkgray;
     
+  }
+  .dodavanje_diskusije{
+    grid-column: 1;
+    grid-row: 7/10;
+    background-color: #4355c6;
+    margin-top: 1vw;
+    margin-left: 1vw;
+    width: 11vw;
+    height: 25vh;
+    background-color: white;
+    border-radius: 3%;
+    border: 2px solid darkgray;
+  }
+  .dodavanje_diskusije:hover{
+    background-color: darkgray;
   }
