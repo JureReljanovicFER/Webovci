@@ -2,7 +2,10 @@ package hr.stanblog.stanblog.service.impl;
 
 import hr.stanblog.stanblog.dao.UserApartmentBuildingRepository;
 import hr.stanblog.stanblog.dto.ApartmentBuildingDto;
+import hr.stanblog.stanblog.exceptions.individualExceptions.NoSuchBuildingException;
 import hr.stanblog.stanblog.model.ApartmentBuilding;
+import hr.stanblog.stanblog.model.AppUser;
+import hr.stanblog.stanblog.model.UserApartmentBuilding;
 import hr.stanblog.stanblog.service.ApartmentBuildingService;
 import hr.stanblog.stanblog.dao.ApartmentBuildingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,4 +52,20 @@ public class ApartmentBuildingServiceImpl implements ApartmentBuildingService {
 
         return apartmentBuildings;
     }
+
+    @Override
+    public List<AppUser> getTenants(Long Id) {
+        if (!apartmentBuildingRepository.existsById(Id)) throw new NoSuchBuildingException();
+
+        List<UserApartmentBuilding> list = userApartmentBuildingRepository.findUserApartmentBuildingsByApartmentBuildingId(Id);
+        List<AppUser> users = new ArrayList<>();
+        for (UserApartmentBuilding elem : list) {
+            users.add(elem.getUser());
+        }
+
+
+        return users;
+    }
+
+
 }
