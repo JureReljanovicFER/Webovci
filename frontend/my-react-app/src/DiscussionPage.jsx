@@ -110,8 +110,22 @@ export default function DiscussionPage() {
       <h1 className="discussion_title">{data.title}</h1>
       <p>{data.description}</p>
       <div className="discussion_container">
-        {/* <h3 className="discussion_title">Polls</h3> */}
-        
+        <h3 className="discussion_title">Poll</h3>
+        <div className="poll">
+          <h4>{data.voting.title}</h4>
+          <hr></hr>
+          <p>{data.voting.description}</p>
+          <hr></hr>
+          {data.userVotngs.map((vote, index) => (
+          <div key={index} className="votes">
+              <p>
+                {vote.userId + ":"} + {vote.answerPositive}
+              </p>
+          </div>
+        ))}
+        <hr></hr>
+        <button className="discussion_btn2">Slažem se!</button>
+        </div>        
         <h3 className="discussion_title">Comments</h3>
         {data.comments.map((comment, index) => (
           <div key={index} className="discussion_comment">
