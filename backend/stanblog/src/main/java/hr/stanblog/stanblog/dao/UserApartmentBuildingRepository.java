@@ -13,5 +13,7 @@ public interface UserApartmentBuildingRepository extends JpaRepository<UserApart
     boolean existsByUserIdAndAndApartmentBuildingId(Long userId, Long ApartmentBuildingId);
 
     List<ApartmentBuilding> findBuildingsByUserId(Long userId);
+
+    List<UserApartmentBuilding> findUserApartmentBuildingsByApartmentBuildingId(Long BuildingId);
 }
 

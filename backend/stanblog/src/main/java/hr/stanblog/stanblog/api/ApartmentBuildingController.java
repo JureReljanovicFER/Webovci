@@ -1,6 +1,8 @@
 package hr.stanblog.stanblog.api;
 
-import hr.stanblog.stanblog.dao.UserApartmentBuildingRepository;
+import hr.stanblog.stanblog.exceptions.ResponseObj;
+import hr.stanblog.stanblog.exceptions.individualExceptions.NoSuchBuildingException;
+import hr.stanblog.stanblog.model.AppUser;
 import hr.stanblog.stanblog.service.ApartmentBuildingService;
 import hr.stanblog.stanblog.model.ApartmentBuilding;
 import hr.stanblog.stanblog.dto.ApartmentBuildingDto;
@@ -17,9 +19,6 @@ import java.util.List;
 @RequestMapping("/apartment-buildings")
 public class ApartmentBuildingController {
     private final ApartmentBuildingService apartmentBuildingService;
-
-    @Autowired
-    private UserApartmentBuildingRepository userApartmentBuildingRepository;
 
     @Autowired
     private UserService userService;
@@ -53,4 +52,22 @@ public class ApartmentBuildingController {
             return ResponseEntity.badRequest().body(null);
         }
     }
+
+    @GetMapping("/getTenants/{buildingId}")
+    public ResponseEntity<ResponseObj> getTenants(@PathVariable Long buildingId) {
+        List<AppUser> users;
+        try {
+            users=apartmentBuildingService.getTenants(buildingId);
+        } catch (NoSuchBuildingException e) {
+            return new ResponseEntity<>(new ResponseObj("Zgrada s tim ID-em ne postoji"), HttpStatus.BAD_REQUEST);
+        }
+
+        if (!users.isEmpty()) {
+            ResponseObj test = new ResponseObj("test", users);
+            return new ResponseEntity<>(new ResponseObj(("Dohvaćeni stanari zgrade s ID-om " + buildingId), users), HttpStatus.OK);
+        }else
+            return new ResponseEntity<>(new ResponseObj("Zgrada je prazna"),HttpStatus.BAD_REQUEST);
+    }
+
+
 }
