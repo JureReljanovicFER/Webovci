@@ -2,6 +2,7 @@ package hr.stanblog.stanblog.dto;
 
 import hr.stanblog.stanblog.model.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -19,9 +20,11 @@ public class DiscussionDto {
 
         private VotingDto voting;
 
+        private List<UserVotingDto> userVotngs;
+
         private List<CommentDto> comments;
 
-        public DiscussionDto(Long id, UserDto creatorUser, String title, String description, ApartmentBuildingDto apartmentBuilding, List<DiscussionVisibilityDto> discussionVisibilities, VotingDto voting, List<CommentDto> comments) {
+        public DiscussionDto(Long id, UserDto creatorUser, String title, String description, ApartmentBuildingDto apartmentBuilding, List<DiscussionVisibilityDto> discussionVisibilities, VotingDto voting, List<UserVotingDto> userVotings, List<CommentDto> comments) {
                 this.id = id;
                 this.creatorUser = creatorUser;
                 this.title = title;
@@ -30,6 +33,7 @@ public class DiscussionDto {
                 this.discussionVisibilities = discussionVisibilities;
                 this.voting = voting;
                 this.comments = comments;
+                this.userVotngs = userVotings;
         }
 
         public Long getId() {
@@ -82,6 +86,15 @@ public class DiscussionDto {
 
         public VotingDto getVoting() {
                 return voting;
+        }
+
+        public List<UserVotingDto> getUserVotngs() {
+                return userVotngs;
+        }
+
+        public void setUserVotngs(List<UserVotingDto> userVotngs) {
+                this.userVotngs = userVotngs;
+
         }
 
         public void setVoting(VotingDto voting) {

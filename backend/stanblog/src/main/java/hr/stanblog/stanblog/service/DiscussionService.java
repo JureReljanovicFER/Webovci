@@ -20,8 +20,9 @@ public class DiscussionService {
     private final ApartmentBuildingRepository apartmentBuildingRepository;
     private final  CommentRepository commentRepository;
     private final VotingRepository votingRepository;
+    private final UserVotingRepository userVotingRepository;
 
-    public DiscussionService(DiscussionRepository discussionRepository, DiscussionVisibilityRepository discussionVisibilityRepository, UserApartmentBuildingRepository userApartmentBuildingRepository, UserRepository userRepository, ApartmentBuildingRepository apartmentBuildingRepository, CommentRepository commentRepository, VotingRepository votingRepository) {
+    public DiscussionService(DiscussionRepository discussionRepository, DiscussionVisibilityRepository discussionVisibilityRepository, UserApartmentBuildingRepository userApartmentBuildingRepository, UserRepository userRepository, ApartmentBuildingRepository apartmentBuildingRepository, CommentRepository commentRepository, VotingRepository votingRepository, UserVotingRepository userVotingRepository) {
         this.discussionRepository = discussionRepository;
         this.discussionVisibilityRepository = discussionVisibilityRepository;
         this.userApartmentBuildingRepository = userApartmentBuildingRepository;
@@ -29,6 +30,7 @@ public class DiscussionService {
         this.apartmentBuildingRepository = apartmentBuildingRepository;
         this.commentRepository = commentRepository;
         this.votingRepository = votingRepository;
+        this.userVotingRepository = userVotingRepository;
     }
 
     public List<DiscussionBasicDto> getAllDiscussionsBasic() {
@@ -77,7 +79,15 @@ public class DiscussionService {
             commentDtos.add(new CommentDto(comment.getId(), commentAutherDto, comment.getContent(), comment.getCreatedAt()));
         });
 
-        DiscussionDto discussionDto = new DiscussionDto(discussion.getId(), userDto, discussion.getTitle(), discussion.getDescription(), apartmentBuildingDto, discussionVisibilityDtos, votingDto, commentDtos);
+        List<UserVotingDto> userVotingDtos = new ArrayList<>();
+
+        List<UserVoting> userVotings = userVotingRepository.findUserVotingByVoting(voting);
+
+        userVotings.forEach(userVoting -> {
+            userVotingDtos.add(new UserVotingDto( userVoting.isAnswerPozitive(), userVoting.getId()));
+        });
+
+        DiscussionDto discussionDto = new DiscussionDto(discussion.getId(), userDto, discussion.getTitle(), discussion.getDescription(), apartmentBuildingDto, discussionVisibilityDtos, votingDto, userVotingDtos, commentDtos);
 
         return discussionDto;
     }
