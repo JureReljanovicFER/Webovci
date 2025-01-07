@@ -105,6 +105,9 @@ export default function DiscussionPage() {
     return <div>Error: Failed to load discussion data</div>;
   }
 
+  const totalVotesFor = data.userVotngs.filter((vote) => vote.answerPositive).length;
+  const totalVotesAgainst = data.userVotngs.filter((vote) => !vote.answerPositive).length;
+
   return (
     <>
       <h1 className="discussion_title">{data.title}</h1>
@@ -114,8 +117,8 @@ export default function DiscussionPage() {
         <div className="poll">
           <h4>{data.voting.title}</h4>
           <hr></hr>
-          <p>{data.voting.description}</p>
-          <hr></hr>
+          <p>Votes for: {totalVotesFor}</p>
+          <p>Votes against: {totalVotesAgainst}</p>
           {data.userVotngs.map((vote, index) => (
           <div key={index} className="votes">
               <p>
@@ -124,7 +127,8 @@ export default function DiscussionPage() {
           </div>
         ))}
         <hr></hr>
-        <button className="discussion_btn2">Slažem se!</button>
+        <button className="discussion_btn2">{data.voting.pozitiveAnswerLabel}</button>
+        <button className="discussion_btn2">{data.voting.negativeAnswerLabel}</button>
         </div>        
         <h3 className="discussion_title">Comments</h3>
         {data.comments.map((comment, index) => (
