@@ -5,43 +5,29 @@ import Header from "./components/Header";
 
 export default function DiscussionPage() {
   const params = useParams();
-  console.log(params);
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  // useEffect(() => {
-  //     const fetchData = async () => {
-  //         try {
-  //             const res = await fetch("http://localhost:8000/Popisclanova");
-  //             const data = await res.json();
-  //             setData(data);
-  //         } catch (error) {
-  //             console.log("Error fetching data:", error);
-  //         } finally {
-  //             setLoading(false);
-  //         }
-  //     };
-  //     fetchData();
-  // }, []);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await fetch(`https://webovci.onrender.com/api/discussions/${params.discussionId}`);
+        const data = await res.json();
+        setData(data);
+      } catch (error) {
+        console.log("Error fetching data:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, [params.discussionId]);
 
-  //data ovdje definiran za testiranje funkcionalnosti, treba se dohvatiti sa backenda
-  const [data, setData] = useState({
-    title: "diskusija 1",
-    description: "description of discussion",
-    komentari: [
-      {
-        user: "JOHN",
-        text: "komentar of JOHNA",
-        replies: [{ user: "JOHNr", text: "reply of JOHNAr", replies: [] }],
-      },
-      { user: "JOHN1", text: "komentar of JOHNA1", replies: [] },
-      { user: "JOHN2", text: "komentar of JOHNA2", replies: [] },
-      { user: "JOHN3", text: "komentar of JOHNA3", replies: [] },
-      { user: "JOHN4", text: "komentar of JOHNA4", replies: [] },
-    ],
-  });
-
+  // Always call hooks before conditional rendering
   const [replyInputs, setReplyInputs] = useState({});
-
   const [newComment, setNewComment] = useState("");
+  const [content, setContent] = useState("");
+
 
   const handleInputChange = (index, value) => {
     setReplyInputs((prevInputs) => ({
@@ -51,27 +37,27 @@ export default function DiscussionPage() {
   };
 
   const addReply = (index) => {
-    const replyText = replyInputs[index];
-    if (!replyText) return;
+    const replycontent = replyInputs[index];
+    if (!replycontent) return;
 
     setData((prevData) => {
-      const newComments = [...prevData.komentari];
+      const newComments = [...prevData.comments];
 
-      if (
-        newComments[index].replies.some(
-          (reply) => reply.text === replyText && reply.user === "NewUser"
-        )
-      ) {
-        return prevData;
-      }
+      // if (
+      //   newComments[index].replies.some(
+      //     (reply) => reply.content === replycontent && reply.user === "NewUser"
+      //   )
+      // ) {
+      //   return prevData;
+      // }
 
-      newComments[index].replies.push({
-        user: "NewUser",
-        text: replyText,
-        replies: [],
-      });
+      // newComments[index].replies.push({
+      //   user: "NewUser",
+      //   content: replycontent,
+      //   replies: [],
+      // });
 
-      return { ...prevData, komentari: newComments };
+      return { ...prevData, comments: newComments };
     });
 
     setReplyInputs((prevInputs) => ({
@@ -80,62 +66,89 @@ export default function DiscussionPage() {
     }));
   };
 
-  const addComment = () => {
+  const addComment = async() => {
     if (!newComment.trim()) return;
-
+  //   try {
+  //     const response = await fetch('https://webovci.onrender.com/api/comments', {
+  //         method: "POST",
+  //         headers: {
+  //             "Content-Type": "application/json",
+  //         },
+  //         body: JSON.stringify(newComment),
+  //     });
+  //     setContent("");
+  //     if (!response.ok) {
+  //         throw new Error(`HTTP error! status: ${response.status}`);
+  //     }
+  //     const result = await response.json();
+  // } catch (error) {
+  //     console.error("Error:", error);
+  // }
     setData((prevData) => ({
       ...prevData,
-      komentari: [
-        ...prevData.komentari,
-        { user: "NewUser", text: newComment, replies: [] },
+      comments: [
+        ...prevData.comments,
+        { author: "NewUser", content: newComment, },
       ],
     }));
 
     setNewComment("");
   };
 
+  // Ensure that loading is checked after all hooks
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  // Avoid rendering when data is still null or not fetched yet
+  if (!data) {
+    return <div>Error: Failed to load discussion data</div>;
+  }
+
+  const totalVotesFor = data.userVotngs.filter((vote) => vote.answerPositive).length;
+  const totalVotesAgainst = data.userVotngs.filter((vote) => !vote.answerPositive).length;
+
   return (
     <>
       <h1 className="discussion_title">{data.title}</h1>
       <p>{data.description}</p>
       <div className="discussion_container">
-        <h3 className="discussion_title">Komentari</h3>
-        {data.komentari.map((comment, index) => (
-          <div key={index} className="discussion_comment">
-            <div className = "comment_contents">
+        <h3 className="discussion_title">Poll</h3>
+        <div className="poll">
+          <h4>{data.voting.title}</h4>
+          <hr></hr>
+          <p>Votes for: {totalVotesFor}</p>
+          <p>Votes against: {totalVotesAgainst}</p>
+          {data.userVotngs.map((vote, index) => (
+          <div key={index} className="votes">
               <p>
-                <strong>{comment.user}:</strong> {comment.text}
+                {vote.userId + ":"} + {vote.answerPositive}
               </p>
-            </div>
-            <hr></hr>
-            {comment.replies.length > 0 && (
-              <div className="replies_container">
-                {comment.replies.map((reply, replyIndex) => (
-                  <div key={replyIndex} className="discussion_reply">
-                    <p>
-                      <strong>{reply.user}:</strong> {reply.text}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            )}
-
-            <div className="reply_input">
-              <input
-                type="text"
-                value={replyInputs[index] || ""}
-                onChange={(e) => handleInputChange(index, e.target.value)}
-                placeholder="Type your reply here..."
-              />
-              <button onClick={() => addReply(index)} className="discussion_btn2">Reply</button>
+          </div>
+        ))}
+        <hr></hr>
+        <button className="discussion_btn2">{data.voting.pozitiveAnswerLabel}</button>
+        <button className="discussion_btn2">{data.voting.negativeAnswerLabel}</button>
+        </div>        
+        <h3 className="discussion_title">Comments</h3>
+        {data.comments.map((comment, index) => (
+          <div key={index} className="discussion_comment">
+            <div className="comment_contents">
+              <p>
+                <strong>{comment.author.firstName + " " + comment.author.lastName}:</strong> {comment.content}
+              </p>
             </div>
           </div>
         ))}
       </div>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
       <div className="discussion_footer">
         <div className="comment_input">
           <input
-            type="text"
+            type="content"
             value={newComment}
             onChange={(e) => setNewComment(e.target.value)}
             placeholder="Type your comment here..."

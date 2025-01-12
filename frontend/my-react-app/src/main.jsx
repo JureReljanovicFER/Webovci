@@ -50,7 +50,7 @@ const router = createBrowserRouter([
     element: <Login />,
   },
   {
-    path: "/diss",
+    path: "/diss/:discussionId",
     element: <DiscussionPage />,
   }
 ]);
