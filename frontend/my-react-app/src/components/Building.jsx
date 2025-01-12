@@ -15,17 +15,45 @@ const Building = () => {
         setpokaziDrugi(!pokaziDrugi);
     };
 
-    const [data1, setData] = useState([]);
+    const [clanovi, setClanovi] = useState([]);
     const [loading, setLoading] = useState(true);
 
-    const [dataDisk, setDataDisk] = useState([]);
+    const [diskusije, setDiskusije] = useState([]);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const res = await fetch("https://webovci.onrender.com/api/apartment-buildings/" + params.buildingId);
                 const data = await res.json();
-                setDataDisk(data);
+
+                const response = await fetch("https://webovci.onrender.com/api/discussions/getAll");
+                const discussionsData = await response.json();
+
+                const discussions = discussionsData.filter((discussion) => discussion.apartmentBuildingId == parseInt(params.buildingId));
+
+                
+
+                const finalDiscussions = []
+
+                discussions.forEach((discussion) => {
+                    if (!discussion.visibilities || discussion.visibilities.length === 0) {
+                        finalDiscussions.push({...discussion, show: true})
+                    } else {
+                    discussion.visibilities.forEach((visibility) => {
+                        if (visibility.appUser == params.userId) {
+                            if (visibility.canUserSeeDiscussion == true) {
+                                finalDiscussions.push({...discussion, show: true})
+                            } else {
+                                finalDiscussions.push({...discussion, show: false})
+                            }
+                        }
+                    });
+                }
+                })
+
+                console.log(finalDiscussions)
+                
+                setDiskusije(finalDiscussions);
             } catch (error) {
                 console.log("Error fetching data:", error);
             } finally {
@@ -38,8 +66,11 @@ const Building = () => {
         const fetchData = async () => {
             try {
                 const res = await fetch("https://webovci.onrender.com/api/apartment-buildings/getTenants/" + params.buildingId);
-                const data = await res.json();
-                setData(data);
+                const clanovi = await res.json();
+
+                if (clanovi.data) {
+                    setClanovi(clanovi.data);
+                }
             } catch (error) {
                 console.log("Error fetching data:", error);
             } finally {
@@ -131,33 +162,46 @@ const Building = () => {
                     <FaPlus size={100} opacity={0.7} />
                 </div>
                 <div className="diskusije">
-                    <p>NALAZIS SE U DISKUSIJ ZGRADE {data.id}</p>
+                    <p>NALAZIS SE U DISKUSIJAMA ZGRADE {data.id}</p>
                     <hr></hr>
                     <div className="sve_diskusije">
-                        {dataDisk.map((item, index) => (
-                            <Link
-                                key={index}
-                                className="odabirDiskusijeLinkk"
-                                to={`${location.pathname}/discussions/${item.id}`}
-                                state={{ data: item }}
-                            >
-                                <div className="diskusija" key={index}>
-                                    <h1 key={index}>{JSON.stringify(item.title)} </h1>
-                                    <p key={index}> {JSON.stringify(item.description)}</p>
-                                </div>
-                            </Link>
-                        ))}
+                    {diskusije.map((discussion) => {
+                        
+                        if (discussion.show) {
+                            return (
+                            <div key={discussion.id} className="diskusija">
+                                <Link className="odabirDiskusijeLinkk" to={`${location.pathname}/discussions/${discussion.id}`}>
+                                    <div className="diskusija" >
+                                        <h3>{discussion.title} </h3>
+                                        <p> {discussion.description}</p>
+                                    </div>
+                                </Link>
+                            </div>
+                            )
+                        } else {
+                           return  (
+                           <div>
+                                <h3>Naslov: Ne možete vidjeti naslov ove diskusije</h3>
+                            </div>
+                           )
+                            
+                        }
+                })}
+                        
                     </div>
                 </div>
                 <div className="members_list">
                     <p>popis članova zgrade</p>
                     <hr></hr>
                     <div className="members_list_p">
-                        {data1.map((item, index) => (
-                            <p key={index}>
-                                {JSON.stringify(item.ime)} {JSON.stringify(item.prezime)}
+                        {clanovi.map((item) => {
+                            return (
+                            <p key={item.id}>
+                                {item.firstName} {item.lastName} - uloga: {item.userRole}
                             </p>
-                        ))}
+                            )
+                        })
+                    }
                     </div>
                     <button className="add_member_btn" onClick={toggleAddNewMember}>
                         dodaj_člana

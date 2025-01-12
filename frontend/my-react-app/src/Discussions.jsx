@@ -30,7 +30,7 @@ export default function Discussions() {
         <>
             <h1>Building page {params.buildingId} Discussions</h1>
 
-            <div>
+            {/* <div>
                 {discussions.forEach((discussion) => {
                     discussion.visibilities.forEach((visibility) => {
                         if (visibility.appUser == params.userId) {
@@ -49,7 +49,7 @@ export default function Discussions() {
                         }
                     });
                 })}
-            </div>
+            </div> */}
         </>
     );
 }

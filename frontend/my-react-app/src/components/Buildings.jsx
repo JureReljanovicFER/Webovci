@@ -49,14 +49,7 @@ export default function Buildings() {
 
     return (
         <div>
-            {data.map((item) => (
-                <Link key={item.id} className="odabirZgradeLink" onClick={() => navigate(`${item.id}`)} state={{ data: item }}>
-                    <div className="zgrada">
-                        <h1>{item.address}</h1>
-                        <BsFillBuildingsFill size={200} opacity={0.5} />
-                    </div>
-                </Link>
-            ))}
+            
             <BuildingsChoice data={data} user={user} />
         </div>
     );
