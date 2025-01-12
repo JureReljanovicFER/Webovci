@@ -1,13 +1,14 @@
-import React from "react";
-import { useLocation } from "react-router-dom";
+// import React from "react";
+import { useLocation, useParams } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
-import Header from "./Header";
+// import Header from "./Header";
 import "./styles/Building.css";
 import { Link } from "react-router-dom";
 import { FaPlus } from "react-icons/fa";
 const Building = () => {
     const location = useLocation();
     const { data } = location.state || {};
+    const params = useParams();
 
     const [pokaziDrugi, setpokaziDrugi] = useState(false);
     const toggleDrugi = () => {
@@ -17,12 +18,12 @@ const Building = () => {
     const [data1, setData] = useState([]);
     const [loading, setLoading] = useState(true);
 
-    const[dataDisk, setDataDisk] = useState([]);
+    const [dataDisk, setDataDisk] = useState([]);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const res = await fetch("http://localhost:8000/Diskusije");
+                const res = await fetch("https://webovci.onrender.com/api/apartment-buildings/" + params.buildingId);
                 const data = await res.json();
                 setDataDisk(data);
             } catch (error) {
@@ -36,7 +37,7 @@ const Building = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const res = await fetch("http://localhost:8000/Popisclanova");
+                const res = await fetch("https://webovci.onrender.com/api/apartment-buildings/getTenants/" + params.buildingId);
                 const data = await res.json();
                 setData(data);
             } catch (error) {
@@ -53,10 +54,10 @@ const Building = () => {
         setAddNewMember((prev) => !prev);
     };
 
-    const[dodavanjeDiskusije,setDodavanjeDiskusije] = useState(false);
-    const toggleDodavanjeDiskusije = () =>{
+    const [dodavanjeDiskusije, setDodavanjeDiskusije] = useState(false);
+    const toggleDodavanjeDiskusije = () => {
         setDodavanjeDiskusije((prev) => !prev);
-    }
+    };
 
     const targetDivRef = useRef(null);
 
@@ -98,17 +99,16 @@ const Building = () => {
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
-            const result = await response.json();
+            // const result = await response.json();
         } catch (error) {
             console.error("Error:", error);
         }
     };
-    const [ImeDiskusije,setImeDiskusije] = useState("");
+    const [ImeDiskusije, setImeDiskusije] = useState("");
     const handleDiskusije = async (event) => {
         event.preventDefault();
         toggleDodavanjeDiskusije();
-    }
-
+    };
 
     return (
         <>
@@ -134,14 +134,19 @@ const Building = () => {
                     <p>NALAZIS SE U DISKUSIJ ZGRADE {data.id}</p>
                     <hr></hr>
                     <div className="sve_diskusije">
-                    {dataDisk.map((item,index)=>(
-                        <Link key={index} className="odabirDiskusijeLinkk" to={`${location.pathname}/discussions/${item.id}`} state={{ data: item }}>
-                            <div className="diskusija" key={index}>
-                                <h1 key={index}>{JSON.stringify(item.title)} </h1>
-                                <p key={index}> {JSON.stringify(item.description)}</p>
-                            </div>
-                        </Link>
-                    ))}
+                        {dataDisk.map((item, index) => (
+                            <Link
+                                key={index}
+                                className="odabirDiskusijeLinkk"
+                                to={`${location.pathname}/discussions/${item.id}`}
+                                state={{ data: item }}
+                            >
+                                <div className="diskusija" key={index}>
+                                    <h1 key={index}>{JSON.stringify(item.title)} </h1>
+                                    <p key={index}> {JSON.stringify(item.description)}</p>
+                                </div>
+                            </Link>
+                        ))}
                     </div>
                 </div>
                 <div className="members_list">
@@ -178,24 +183,24 @@ const Building = () => {
                     </buton>
                 </div>
             )}
-            {dodavanjeDiskusije &&(
+            {dodavanjeDiskusije && (
                 <div className="addNewMember" ref={targetDivRef}>
-                <h2>dodavanje diskusije</h2>
-                <hr></hr>
-                <form onSubmit={handleDiskusije}>
-                    <div className="formaAddNew">
-                        <label>
-                            ime nove diskusije:
-                            <input type="text" value={ImeDiskusije} onChange={(e) => setImeDiskusije(e.target.value)}></input>
-                        </label>
-                        <br />
-                        <button type="submit">Submit</button>
-                    </div>
-                </form>
-                <buton className="closeNewMember" onClick={toggleDodavanjeDiskusije}>
-                    X
-                </buton>
-            </div>
+                    <h2>dodavanje diskusije</h2>
+                    <hr></hr>
+                    <form onSubmit={handleDiskusije}>
+                        <div className="formaAddNew">
+                            <label>
+                                ime nove diskusije:
+                                <input type="text" value={ImeDiskusije} onChange={(e) => setImeDiskusije(e.target.value)}></input>
+                            </label>
+                            <br />
+                            <button type="submit">Submit</button>
+                        </div>
+                    </form>
+                    <buton className="closeNewMember" onClick={toggleDodavanjeDiskusije}>
+                        X
+                    </buton>
+                </div>
             )}
         </>
     );
