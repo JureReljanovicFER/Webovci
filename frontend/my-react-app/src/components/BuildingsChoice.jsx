@@ -1,16 +1,14 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./styles/BuildingsChoice.css";
 import { useState, useEffect, useRef } from "react";
 import { BsFillBuildingsFill } from "react-icons/bs";
 import { FaPlus } from "react-icons/fa";
 
-
-const BuildingsChoice = ({ data ,user }) => {
-
-
+const BuildingsChoice = ({ data, user }) => {
     const [showAddNew, setShowAddNew] = useState(false);
     const targetDivRef = useRef(null);
+    const navigate = useNavigate();
 
     const [address, setAddress] = useState("");
     const [zipCode, setZipCode] = useState("");
@@ -44,7 +42,7 @@ const BuildingsChoice = ({ data ,user }) => {
             city,
             numberOfIndividualApartments: parseInt(numberOfIndividualApartments, 10),
         };
-        console.log(data)
+        console.log(data);
         try {
             const response = await fetch("https://webovci.onrender.com/api/apartment-buildings/new", {
                 method: "POST",
@@ -60,12 +58,12 @@ const BuildingsChoice = ({ data ,user }) => {
             const result = await response.json();
 
             const newDiv = (
-                <Link key={divs.length} className="odabirZgradeLink" >
-                        <div className="zgrada">
-                            <h1>{address}</h1>
-                            <BsFillBuildingsFill size={200} opacity={0.5} />
-                        </div>
-                    </Link>
+                <Link key={divs.length} className="odabirZgradeLink">
+                    <div className="zgrada">
+                        <h1>{address}</h1>
+                        <BsFillBuildingsFill size={200} opacity={0.5} />
+                    </div>
+                </Link>
             );
             setDivs([...divs, newDiv]);
 
@@ -100,7 +98,7 @@ const BuildingsChoice = ({ data ,user }) => {
         <>
             <div className="odabirZgrade">
                 {data.map((item, index) => (
-                    <Link key={index} className="odabirZgradeLink" to={`${item.id}`} state={{ data: item }}>
+                    <Link key={index} className="odabirZgradeLink" onClick={() => navigate(`${item.id}`)} state={{ data: item }}>
                         <div className="zgrada">
                             <h1>{item.address}</h1>
                             <BsFillBuildingsFill size={200} opacity={0.5} />
@@ -124,7 +122,12 @@ const BuildingsChoice = ({ data ,user }) => {
                         <div className="tekst_login">
                             <label>
                                 Adresa:
-                                <input type="text" name="addresstxt" value={address} onChange={(e) => setAddress(e.target.value)} />
+                                <input
+                                    type="text"
+                                    name="addresstxt"
+                                    value={address}
+                                    onChange={(e) => setAddress(e.target.value)}
+                                />
                             </label>
                             <br />
                             <label>
