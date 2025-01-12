@@ -2,9 +2,8 @@ import { useState, useEffect, Link } from "react";
 import BuildingsChoice from "./BuildingsChoice";
 import { useLocation, useNavigate } from "react-router-dom";
 import { BsFillBuildingsFill } from "react-icons/bs";
-import { FaPlus } from "react-icons/fa";
 
-const Buildings = () => {
+export default function Buildings() {
     const [data, setData] = useState([]);
     const [user, setUser] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -42,7 +41,7 @@ const Buildings = () => {
             }
         };
         fetchUser();
-    }, []);
+    }, [id, location]);
 
     console.log(user);
 
@@ -50,8 +49,8 @@ const Buildings = () => {
 
     return (
         <div>
-            {data.map((item, index) => (
-                <Link key={index} className="odabirZgradeLink" onClick={() => navigate(`${item.id}`)} state={{ data: item }}>
+            {data.map((item) => (
+                <Link key={item.id} className="odabirZgradeLink" onClick={() => navigate(`${item.id}`)} state={{ data: item }}>
                     <div className="zgrada">
                         <h1>{item.address}</h1>
                         <BsFillBuildingsFill size={200} opacity={0.5} />
@@ -63,4 +62,3 @@ const Buildings = () => {
     );
 };
 
-export default Buildings;

@@ -72,6 +72,7 @@ const BuildingsChoice = ({ data, user }) => {
             setCity("");
             setNoia("");
             setZipCode("");
+            navigate("?addedBuilding=true")
         } catch (error) {
             toggleAddNew();
             setAddress("");
