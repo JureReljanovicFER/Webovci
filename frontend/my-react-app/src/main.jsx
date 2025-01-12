@@ -52,7 +52,7 @@ const router = createBrowserRouter([
   {
     path: "/diss/:discussionId",
     element: <DiscussionPage />,
-  }
+  },
 ]);
 
 createRoot(document.getElementById("root")).render(
