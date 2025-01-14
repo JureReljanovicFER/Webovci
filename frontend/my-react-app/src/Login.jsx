@@ -47,16 +47,16 @@ function Login() {
                     {loading ? (
                         <p>Učitavanje ...</p>
                     ) : (
-                        // <a href="https://accounts.google.com/o/oauth2/v2/auth?redirect_uri=https://webovci-1.onrender.com&response_type=token&client_id=860876392172-7ft3es30lvo02gc4dh1b0apcsoa5oijc.apps.googleusercontent.com&scope=https://www.googleapis.com/auth/userinfo.email">
-                        //     <button>
-                        //         Log in with Google <FcGoogle />
-                        //     </button>
-                        // </a>
-                        <a href="https://accounts.google.com/o/oauth2/v2/auth?redirect_uri=http://localhost:5173&response_type=token&client_id=860876392172-7ft3es30lvo02gc4dh1b0apcsoa5oijc.apps.googleusercontent.com&scope=https://www.googleapis.com/auth/userinfo.email">
+                        <a href="https://accounts.google.com/o/oauth2/v2/auth?redirect_uri=https://webovci-1.onrender.com&response_type=token&client_id=860876392172-7ft3es30lvo02gc4dh1b0apcsoa5oijc.apps.googleusercontent.com&scope=https://www.googleapis.com/auth/userinfo.email">
                             <button>
                                 Log in with Google <FcGoogle />
                             </button>
                         </a>
+                        // <a href="https://accounts.google.com/o/oauth2/v2/auth?redirect_uri=http://localhost:5173&response_type=token&client_id=860876392172-7ft3es30lvo02gc4dh1b0apcsoa5oijc.apps.googleusercontent.com&scope=https://www.googleapis.com/auth/userinfo.email">
+                        //     <button>
+                        //         Log in with Google <FcGoogle />
+                        //     </button>
+                        // </a>
                     )}
 
                     {showError && <p>Ovaj korisnički račun ne postoji</p>}
