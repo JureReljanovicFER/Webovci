@@ -36,9 +36,7 @@ const Building = () => {
                 const finalDiscussions = []
 
                 discussions.forEach((discussion) => {
-                    if (!discussion.visibilities || discussion.visibilities.length === 0) {
                         finalDiscussions.push({...discussion, show: true})
-                    } else {
                     discussion.visibilities.forEach((visibility) => {
                         if (visibility.appUser == params.userId) {
                             if (visibility.canUserSeeDiscussion == true) {
@@ -48,7 +46,6 @@ const Building = () => {
                             }
                         }
                     });
-                }
                 })
 
                 console.log(finalDiscussions)
@@ -121,6 +118,7 @@ const Building = () => {
         try {
             const response = await fetch('https://webovci.onrender.com/api/user/addUserBuilding"', {
                 method: "POST",
+                mode: 'no-cors',
                 headers: {
                     "Content-Type": "application/json",
                 },
@@ -152,7 +150,7 @@ const Building = () => {
                         <p>
                             {data.city} , {data.zipCode}
                         </p>
-                        <p>ukupan broj članova</p>
+                        <p>ukupan broj članova: {data.numberOfIndividualApartments}</p>
                     </div>
                     <button onClick={toggleDrugi}>{pokaziDrugi ? "Sakrij" : "Pokaži više"}</button>
                 </div>

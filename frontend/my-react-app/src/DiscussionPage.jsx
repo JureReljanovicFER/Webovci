@@ -3,25 +3,28 @@ import "./components/styles/discussion.css";
 import React, { useEffect, useState } from "react";
 import Header from "./components/Header";
 
+
+
 export default function DiscussionPage() {
   const params = useParams();
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  const fetchData = async () => {
+    try {
+      const res = await fetch(
+        `https://webovci.onrender.com/api/discussions/${params.discussionId}`
+      );
+      const data = await res.json();
+      setData(data);
+    } catch (error) {
+      console.log("Error fetching data:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await fetch(
-          `https://webovci.onrender.com/api/discussions/${params.discussionId}`
-        );
-        const data = await res.json();
-        setData(data);
-      } catch (error) {
-        console.log("Error fetching data:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
     fetchData();
   }, [params.discussionId]);
 
@@ -80,18 +83,16 @@ export default function DiscussionPage() {
 
       const userData = await userResponse.json();
 
-      const comment = {
-        author: {
-          firstName: userData.firstName,
-          lastName: userData.lastName,
-          email: userData.email,
-          userRole: userData.userRole,
-        },
+      const comment = {   
+        userId: params.userid,
+        discussionId: params.discussionId,
         content: newComment,
       };
 
+      console.log(comment)
+
       const response = await fetch(
-        "https://webovci.onrender.com/api/comments",
+        "https://webovci.onrender.com/api/comments/",
         {
           method: "POST",
           headers: {
@@ -107,14 +108,15 @@ export default function DiscussionPage() {
 
       const result = await response.json();
 
-      setData((prevData) => ({
-        ...prevData,
-        comments: [
-          ...prevData.comments,
-          result,
-          { author: `${comment.author.firstName}`, content: newComment },
-        ], ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////jel ovo doooooooobrooooooooooooooooooooooooooooooooooooooooooooooooooooo
-      }));
+      await fetchData()
+      // setData((prevData) => ({
+      //   ...prevData,
+      //   comments: [
+      //     ...prevData.comments,
+      //     result,
+      //     { author: `${comment.author.firstName}`, content: newComment },
+      //   ], ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////jel ovo doooooooobrooooooooooooooooooooooooooooooooooooooooooooooooooooo
+      // }));
 
       setNewComment("");
     } catch (error) {
