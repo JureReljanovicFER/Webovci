@@ -26,16 +26,16 @@ export default function DiscussionPage() {
     fetchData();
   }, [params.discussionId]);
 
-  const [replyInputs, setReplyInputs] = useState({});
+  // const [replyInputs, setReplyInputs] = useState({});
   const [newComment, setNewComment] = useState("");
-  const [content, setContent] = useState("");
+  // const [content, setContent] = useState("");
 
-  const handleInputChange = (index, value) => {
-    setReplyInputs((prevInputs) => ({
-      ...prevInputs,
-      [index]: value,
-    }));
-  };
+  // const handleInputChange = (index, value) => {
+  //   setReplyInputs((prevInputs) => ({
+  //     ...prevInputs,
+  //     [index]: value,
+  //   }));
+  // };
 
   const addComment = async () => {
     if (!newComment.trim()) return;
@@ -92,7 +92,7 @@ export default function DiscussionPage() {
     console.log(data.voting);
     try {
       const response = await fetch(
-        `https://webovci.onrender.com/api/voting/${data.voting.title}`,
+        `https://webovci.onrender.com/api/voting/${data.voting.id}`,
         {
           method: "POST",
           headers: {
@@ -121,7 +121,7 @@ export default function DiscussionPage() {
     console.log(vote);
     try {
       const response = await fetch(
-        `https://webovci.onrender.com/api/voting/${data.voting.title}`,
+        `https://webovci.onrender.com/api/voting/${data.voting.id}`,
         {
           method: "POST",
           headers: {
@@ -148,12 +148,14 @@ export default function DiscussionPage() {
     let negativeAnsLabel = "Ne slazem se";
     let dissId = params.discussionId;
     let usId = params.userId;
+    let votingId = data.voting.id;
     if (votingTitle == null || votingTitle == "") {
       alert("Morate unijeti naslov");
       return;
     }
 
     const votingData = {
+      id: votingId,
       title: votingTitle,
       pozitiveAnswerLabel: pozitiveAnsLabel,
       negativeAnswerLabel: negativeAnsLabel,
