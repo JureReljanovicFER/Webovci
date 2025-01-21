@@ -41,13 +41,13 @@ public class DiscussionController {
 
     @RequestMapping("/{id}")
     @GetMapping
-    public ResponseEntity<DiscussionDto> getAllDiscussionsFull(@PathVariable Long id) {
+    public ResponseEntity<ResponseObj> getAllDiscussionsFull(@PathVariable Long id) {
         try {
             DiscussionDto discussionDto = discussionService.getDiscussionsById(id);
-            return new ResponseEntity<>(discussionDto, HttpStatus.OK);
+            return new ResponseEntity<>(new ResponseObj("success", discussionDto), HttpStatus.OK);
         }
         catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new ResponseObj(e.getMessage()), HttpStatus.BAD_REQUEST);
         }
     }
 

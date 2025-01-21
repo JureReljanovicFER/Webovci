@@ -58,6 +58,7 @@ public class DiscussionService {
         List<Comment> comments = commentRepository.findAll();
         List<DiscussionVisibility> discussionVisibilities = discussionVisibilityRepository.findAllByDiscussion(discussion);
         Voting voting = votingRepository.findByDiscussionId(discussion.getId());
+
         AppUser user = discussion.getCreatorUser();
         ApartmentBuilding apartmentBuilding = discussion.getApartmentBuilding();
 
@@ -65,7 +66,6 @@ public class DiscussionService {
 
         ApartmentBuildingDto apartmentBuildingDto = new ApartmentBuildingDto(apartmentBuilding.getId(), apartmentBuilding.getAddress(), apartmentBuilding.getZipCode(), apartmentBuilding.getCity(), apartmentBuilding.getNumberOfIndividualApartments());
 
-        VotingDto votingDto = new VotingDto(voting.getTitle(), voting.getPozitiveAnswerLabel(), voting.getNegativeAnswerLabel(), voting.getDiscussion().getId());
 
         List<DiscussionVisibilityDto> discussionVisibilityDtos = new ArrayList<>();
         discussionVisibilities.forEach(discussionVisibility -> {
@@ -87,7 +87,15 @@ public class DiscussionService {
             userVotingDtos.add(new UserVotingDto( userVoting.isAnswerPozitive(), userVoting.getId()));
         });
 
-        DiscussionDto discussionDto = new DiscussionDto(discussion.getId(), userDto, discussion.getTitle(), discussion.getDescription(), apartmentBuildingDto, discussionVisibilityDtos, votingDto, userVotingDtos, commentDtos);
+        DiscussionDto discussionDto = null;
+
+        if (voting != null) {
+            VotingDto votingDto = new VotingDto(voting.getId(), voting.getTitle(), voting.getPozitiveAnswerLabel(), voting.getNegativeAnswerLabel(), voting.getDiscussion().getId());
+            discussionDto = new DiscussionDto(discussion.getId(), userDto, discussion.getTitle(), discussion.getDescription(), apartmentBuildingDto, discussionVisibilityDtos, votingDto, userVotingDtos, commentDtos);
+
+        }
+
+        discussionDto = new DiscussionDto(discussion.getId(), userDto, discussion.getTitle(), discussion.getDescription(), apartmentBuildingDto, discussionVisibilityDtos, null, userVotingDtos, commentDtos);
 
         return discussionDto;
     }

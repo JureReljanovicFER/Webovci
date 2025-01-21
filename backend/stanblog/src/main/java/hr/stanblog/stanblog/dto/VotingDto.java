@@ -6,6 +6,8 @@ import jakarta.persistence.OneToOne;
 
 public class VotingDto {
 
+    private Long id;
+
     private String title;
 
     private String pozitiveAnswerLabel;
@@ -14,11 +16,20 @@ public class VotingDto {
 
     private Long discussionId;
 
-    public VotingDto(String title, String pozitiveAnswerLabel, String negativeAnswerLabel, Long discussionId) {
+    public VotingDto(Long id, String title, String pozitiveAnswerLabel, String negativeAnswerLabel, Long discussionId) {
+        this.id = id;
         this.title = title;
         this.pozitiveAnswerLabel = pozitiveAnswerLabel;
         this.negativeAnswerLabel = negativeAnswerLabel;
         this.discussionId = discussionId;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getTitle() {
