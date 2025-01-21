@@ -15,7 +15,7 @@ export default function DiscussionPage() {
       );
       // const text = await res.text(); // Get the response as text (before parsing as JSON)
       // console.log("Raw response text:", text);
-      const data = await res.json();
+      const data = (await res.json()).data;
       setData(data);
     } catch (error) {
       console.log("Error fetching data:", error);
@@ -150,14 +150,13 @@ export default function DiscussionPage() {
     let negativeAnsLabel = "Ne slazem se";
     let dissId = params.discussionId;
     let usId = params.userId;
-    let votingId = data.voting.id;
+    //let votingId = data.voting.id;
     if (votingTitle == null || votingTitle == "") {
       alert("Morate unijeti naslov");
       return;
     }
 
     const votingData = {
-      id: votingId,
       title: votingTitle,
       pozitiveAnswerLabel: pozitiveAnsLabel,
       negativeAnswerLabel: negativeAnsLabel,
@@ -195,12 +194,17 @@ export default function DiscussionPage() {
     return <div>Error: Failed to load discussion data</div>;
   }
 
-  const totalVotesFor = data.userVotngs.filter(
-    (vote) => vote.answerPositive
-  ).length;
-  const totalVotesAgainst = data.userVotngs.filter(
-    (vote) => !vote.answerPositive
-  ).length;
+  let totalVotesFor = 0;
+  let totalVotesAgainst = 0;
+
+  if (data.userVotngs) {
+    totalVotesFor = data.userVotngs.filter(
+      (vote) => vote.answerPositive
+    ).length;
+    totalVotesAgainst = data.userVotngs.filter(
+      (vote) => !vote.answerPositive
+    ).length;
+  }
 
   return (
     <>
@@ -208,39 +212,53 @@ export default function DiscussionPage() {
       <p>{data.description}</p>
       <div className="discussion_container">
         <h3 className="discussion_title">Glasanje</h3>
-        <div className="poll">
-          <h4>{data.voting.title}</h4>
-          <hr></hr>
-          <p>Votes for: {totalVotesFor}</p>
-          <p>Votes against: {totalVotesAgainst}</p>
-          {data.userVotngs.map((vote, index) => (
-            <div key={index} className="votes">
-              <p>
-                {vote.userId + ":"} + {vote.answerPositive}
-              </p>
-            </div>
-          ))}
-          <hr></hr>
-          <button className="discussion_btn2" onClick={addVotePos}>
-            {data.voting.pozitiveAnswerLabel}
-          </button>
-          <button className="discussion_btn2" onClick={addVoteNeg}>
-            {data.voting.negativeAnswerLabel}
-          </button>
-        </div>
-        <h3 className="discussion_title">Komentari</h3>
-        {data.comments.map((comment, index) => (
-          <div key={index} className="discussion_comment">
-            <div className="comment_contents">
-              <p>
-                <strong>
-                  {comment.author.firstName + " " + comment.author.lastName}:
-                </strong>{" "}
-                {comment.content}
-              </p>
-            </div>
+
+        {data.voting ? (
+          <div className="poll">
+            <h4>{data.voting.title}</h4>
+            <hr></hr>
+            <p>Votes for: {totalVotesFor}</p>
+            <p>Votes against: {totalVotesAgainst}</p>
+
+            {data.userVotngs.map((vote, index) => (
+              <div key={index} className="votes">
+                <p>
+                  {vote.userId + ":"} + {vote.answerPositive}
+                </p>
+              </div>
+            ))}
+
+            <hr></hr>
+            <button className="discussion_btn2" onClick={addVotePos}>
+              {data.voting.pozitiveAnswerLabel}
+            </button>
+            <button className="discussion_btn2" onClick={addVoteNeg}>
+              {data.voting.negativeAnswerLabel}
+            </button>
           </div>
-        ))}
+        ) : (
+          <p>Još nema kreiranog glasanja</p>
+        )}
+        <h3 className="discussion_title">Komentari</h3>
+        {data.comments ? (
+          <div>
+            {data.comments.map((comment, index) => (
+              <div key={index} className="discussion_comment">
+                <div className="comment_contents">
+                  <p>
+                    <strong>
+                      {comment.author.firstName + " " + comment.author.lastName}
+                      :
+                    </strong>{" "}
+                    {comment.content}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <p>Još nema komentara</p>
+        )}
       </div>
       <br></br>
       <br></br>
