@@ -80,18 +80,19 @@ export default function DiscussionPage() {
       console.error("Error adding comment:", error);
     }
 
-    setNewComment("");
+    //setNewComment("");
   };
 
   const addVotePos = async () => {
     const vote = {
       userId: params.userid,
-      answerPositive: true,
+      answerPozitive: true,
     };
     console.log(vote);
+    console.log(data.voting);
     try {
       const response = await fetch(
-        "https://webovci.onrender.com/api/voting/%7Bid%7D",
+        `https://webovci.onrender.com/api/voting/${data.voting.title}`,
         {
           method: "POST",
           headers: {
@@ -115,11 +116,12 @@ export default function DiscussionPage() {
   const addVoteNeg = async () => {
     const vote = {
       userId: params.userid,
-      answerPositive: false,
+      answerPozitive: false,
     };
+    console.log(vote);
     try {
       const response = await fetch(
-        "https://webovci.onrender.com/api/voting/%7Bid%7D",
+        `https://webovci.onrender.com/api/voting/${data.voting.title}`,
         {
           method: "POST",
           headers: {
@@ -128,13 +130,13 @@ export default function DiscussionPage() {
           body: JSON.stringify(vote),
         }
       );
-      const result = await response.json();
-
       if (response.ok) {
         alert("Uspjesno glasanje");
       } else {
-        throw new Error(result.message);
+        throw new Error(response.status);
       }
+      const result = await response.json();
+      await fetchData();
     } catch (error) {
       alert(`Greška: ${error.message}`);
     }
