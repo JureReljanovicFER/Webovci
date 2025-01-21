@@ -123,11 +123,11 @@
 }
 .formaAddNew{
     margin-top: 2vh;
-    height: 15vh;
-    display: flex;
+    /* height: 15vh; */
+    /* display: flex;
     flex-direction: column;
     justify-content: space-around;
-    align-items: center;
+    align-items: center; */
 }
 .formaAddNew button{
     border-radius: 25px;

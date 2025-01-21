@@ -151,8 +151,15 @@ const Building = () => {
       [userId]: !prevSettings[userId],
     }));
   };
+  const handleParticipationChange = (userId) => {
+    setParticipationSettings((prevSettings) => ({
+      ...prevSettings,
+      [userId]: !prevSettings[userId],
+    }));
+  };
 
   const [visibilitySettings, setVisibilitySettings] = useState({});
+  const [participationSettings, setParticipationSettings] = useState({});
   const [ImeDiskusije, setImeDiskusije] = useState("");
   const [OpisDiskusije, setOpisDiskusije] = useState("");
   const handleDiskusije = async (event) => {
@@ -161,7 +168,7 @@ const Building = () => {
     const visibilities = Object.keys(visibilitySettings).map((userId) => ({
       userId: parseInt(userId),
       canUserSee: visibilitySettings[userId],
-      canUserParticipate: visibilitySettings[userId],
+      canUserParticipate: participationSettings[userId],
     }));
 
     const newDiscussion = {
@@ -191,10 +198,10 @@ const Building = () => {
       const result = await response.json();
       console.log("Discussion added successfully:", result);
       await fetchData();
-      setDiskusije((prevDiscussions) => [
-        ...prevDiscussions,
-        { ...newDiscussion, id: result.id, show: true }, 
-      ]);
+    //   setDiskusije((prevDiscussions) => [
+    //     ...prevDiscussions,
+    //     { ...newDiscussion, id: result.id, show: true },
+    //   ]);
     } catch (error) {
       console.error("Error adding discussion:", error);
     }
@@ -327,7 +334,19 @@ const Building = () => {
                   </div>
                 ))}
               </div>
-
+              <h3>Odaberi korisnike koji mogu sudjelovati u diskusiji:</h3>
+              <div>
+                {clanovi.map((user) => (
+                  <div key={user.id}>
+                    <input
+                      type="checkbox"
+                      checked={participationSettings[user.id] || false}
+                      onChange={() => handleParticipationChange(user.id)}
+                    />
+                    {user.firstName} {user.lastName}
+                  </div>
+                ))}
+              </div>
               <br />
               <button type="submit">Submit</button>
             </div>

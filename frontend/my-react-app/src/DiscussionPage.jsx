@@ -13,6 +13,8 @@ export default function DiscussionPage() {
       const res = await fetch(
         `https://webovci.onrender.com/api/discussions/${params.discussionId}`
       );
+      // const text = await res.text(); // Get the response as text (before parsing as JSON)
+      // console.log("Raw response text:", text);
       const data = await res.json();
       setData(data);
     } catch (error) {
