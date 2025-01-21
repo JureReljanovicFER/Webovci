@@ -3,8 +3,6 @@ import "./components/styles/discussion.css";
 import React, { useEffect, useState } from "react";
 import Header from "./components/Header";
 
-
-
 export default function DiscussionPage() {
   const params = useParams();
   const [data, setData] = useState(null);
@@ -39,36 +37,6 @@ export default function DiscussionPage() {
     }));
   };
 
-  const addReply = (index) => {
-    const replycontent = replyInputs[index];
-    if (!replycontent) return;
-
-    setData((prevData) => {
-      const newComments = [...prevData.comments];
-
-      // if (
-      //   newComments[index].replies.some(
-      //     (reply) => reply.content === replycontent && reply.user === "NewUser"
-      //   )
-      // ) {
-      //   return prevData;
-      // }
-
-      // newComments[index].replies.push({
-      //   user: "NewUser",
-      //   content: replycontent,
-      //   replies: [],
-      // });
-
-      return { ...prevData, comments: newComments };
-    });
-
-    setReplyInputs((prevInputs) => ({
-      ...prevInputs,
-      [index]: "",
-    }));
-  };
-
   const addComment = async () => {
     if (!newComment.trim()) return;
 
@@ -83,13 +51,13 @@ export default function DiscussionPage() {
 
       const userData = await userResponse.json();
 
-      const comment = {   
+      const comment = {
         userId: params.userid,
         discussionId: params.discussionId,
         content: newComment,
       };
 
-      console.log(comment)
+      console.log(comment);
 
       const response = await fetch(
         "https://webovci.onrender.com/api/comments/",
@@ -105,49 +73,12 @@ export default function DiscussionPage() {
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-
       const result = await response.json();
-
-      await fetchData()
-      // setData((prevData) => ({
-      //   ...prevData,
-      //   comments: [
-      //     ...prevData.comments,
-      //     result,
-      //     { author: `${comment.author.firstName}`, content: newComment },
-      //   ], ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////jel ovo doooooooobrooooooooooooooooooooooooooooooooooooooooooooooooooooo
-      // }));
-
+      await fetchData();
       setNewComment("");
     } catch (error) {
       console.error("Error adding comment:", error);
     }
-
-    // // https://webovci.onrender.com/api/user/:id
-    // // params.userid
-    // //   try {
-    // //     const response = await fetch('https://webovci.onrender.com/api/comments', {
-    // //         method: "POST",
-    // //         headers: {
-    // //             "Content-Type": "application/json",
-    // //         },
-    // //         body: JSON.stringify(newComment),
-    // //     });
-    // //     setContent("");
-    // //     if (!response.ok) {
-    // //         throw new Error(`HTTP error! status: ${response.status}`);
-    // //     }
-    // //     const result = await response.json();
-    // // } catch (error) {
-    // //     console.error("Error:", error);
-    // // }
-    // setData((prevData) => ({
-    //   ...prevData,
-    //   comments: [
-    //     ...prevData.comments,
-    //     { author: "d", content: newComment },
-    //   ],
-    // }));
 
     setNewComment("");
   };
@@ -157,6 +88,7 @@ export default function DiscussionPage() {
       userId: params.userid,
       answerPositive: true,
     };
+    console.log(vote);
     try {
       const response = await fetch(
         "https://webovci.onrender.com/api/voting/%7Bid%7D",
@@ -168,13 +100,13 @@ export default function DiscussionPage() {
           body: JSON.stringify(vote),
         }
       );
-      const result = await response.json();
-
       if (response.ok) {
         alert("Uspjesno glasanje");
       } else {
-        throw new Error(result.message);
+        throw new Error(response.status);
       }
+      const result = await response.json();
+      await fetchData();
     } catch (error) {
       alert(`Greška: ${error.message}`);
     }
@@ -269,7 +201,7 @@ export default function DiscussionPage() {
       <h1 className="discussion_title">{data.title}</h1>
       <p>{data.description}</p>
       <div className="discussion_container">
-        <h3 className="discussion_title">Poll</h3>
+        <h3 className="discussion_title">Glasanje</h3>
         <div className="poll">
           <h4>{data.voting.title}</h4>
           <hr></hr>
@@ -290,7 +222,7 @@ export default function DiscussionPage() {
             {data.voting.negativeAnswerLabel}
           </button>
         </div>
-        <h3 className="discussion_title">Comments</h3>
+        <h3 className="discussion_title">Komentari</h3>
         {data.comments.map((comment, index) => (
           <div key={index} className="discussion_comment">
             <div className="comment_contents">
@@ -314,7 +246,7 @@ export default function DiscussionPage() {
             type="content"
             value={newComment}
             onChange={(e) => setNewComment(e.target.value)}
-            placeholder="Type your comment here..."
+            placeholder="Ovdje napišite komentar..."
           />
           <button onClick={addComment} className="discussion_btn">
             Dodaj komentar
