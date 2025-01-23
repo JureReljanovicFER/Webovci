@@ -13,46 +13,50 @@ import Layout from "./UserLayout.jsx";
 import FirstPage from "./FirstPage.jsx";
 
 const router = createBrowserRouter([
-    {
-        path: "/",
-        element: <FirstPage />,
-    },
+  {
+    path: "/",
+    element: <FirstPage />,
+  },
 
-    {
-        path: "/:userid",
-        element: <Layout />,
-        errorElement: <h1>404 Not Found</h1>,
-        children: [
-            {
-                index: true,
-                element: <Home />,
-            },
-            {
-                path: "buildings",
-                element: <Buildings />,
-            },
-            {
-                path: "buildings/:buildingId",
-                element: <Building />,
-            },
-            {
-                path: "buildings/:buildingId/discussions",
-                element: <Discussions />,
-            },
-            {
-                path: "buildings/:buildingId/:discussions/:discussionId",
-                element: <DiscussionPage />,
-            },
-        ],
-    },
-    {
-        path: "/login",
-        element: <Login />,
-    },
+  {
+    path: "/:userid",
+    element: <Layout />,
+    errorElement: <h1>404 Not Found</h1>,
+    children: [
+      {
+        index: true,
+        element: <Home />,
+      },
+      {
+        path: "buildings",
+        element: <Buildings />,
+      },
+      {
+        path: "buildings/:buildingId",
+        element: <Building />,
+      },
+      {
+        path: "buildings/:buildingId/discussions",
+        element: <Discussions />,
+      },
+      {
+        path: "buildings/:buildingId/discussions/:discussionId",
+        element: <DiscussionPage />,
+      },
+    ],
+  },
+  {
+    path: "/login",
+    element: <Login />,
+  },
+  {
+    path: "/diss/:discussionId",
+    element: <DiscussionPage />,
+  },
 ]);
 
 createRoot(document.getElementById("root")).render(
-    <StrictMode>
-        <RouterProvider router={router} />
-    </StrictMode>
+  <StrictMode>
+    <RouterProvider router={router} />
+  </StrictMode>
 );

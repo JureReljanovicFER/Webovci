@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 @Table
 public class AppUser {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
     String firstName;
@@ -73,6 +73,6 @@ public class AppUser {
 
     @Override
     public String toString() {
-       return ("name: " + this.firstName + "\n" + "prezime: " + this.lastName + "\n" + "email: " + this.email + "\n" + "user role: " + this.userRole);
+       return ("name: " + this.firstName + "prezime: " + this.lastName + "\n" + "email: " + this.email + "\n" + "user role: " + this.userRole) ;
     }
 }

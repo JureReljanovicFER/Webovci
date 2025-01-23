@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 @Entity
 public class UserApartmentBuilding  {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
     @ManyToOne

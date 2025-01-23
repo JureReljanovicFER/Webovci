@@ -25,7 +25,7 @@ body{
 }
 .zgrada{
     height: 39vh;
-    width: auto;
+    width: 20vw;
     border: 2px solid black;
     border-radius: 5%;
     padding: 5%;
@@ -36,6 +36,7 @@ body{
 .zgrada h1{
     font-size: 3em;
     text-decoration: none;
+
     
 }
 .zgrada:hover{

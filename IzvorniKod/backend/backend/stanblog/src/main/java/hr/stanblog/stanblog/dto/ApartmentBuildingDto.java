@@ -1,19 +1,30 @@
 package hr.stanblog.stanblog.dto;
 
 public class ApartmentBuildingDto {
-    String address;
+    private Long id;
 
-    int zipCode;
+    private String address;
 
-    String city;
+    private int zipCode;
 
-    int numberOfIndividualApartments;
+    private String city;
 
-    public ApartmentBuildingDto(String address, int zipCode, String city, int numberOfIndividualApartments) {
+    private int numberOfIndividualApartments;
+
+    public ApartmentBuildingDto(Long id, String address, int zipCode, String city, int numberOfIndividualApartments) {
+        this.id = id;
         this.address = address;
         this.zipCode = zipCode;
         this.city = city;
         this.numberOfIndividualApartments = numberOfIndividualApartments;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getAddress() {

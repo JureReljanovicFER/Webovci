@@ -1,9 +1,9 @@
 package hr.stanblog.stanblog.dto;
 
 import hr.stanblog.stanblog.model.UserRole;
+import org.springframework.http.HttpStatusCode;
 
 public class UserDto {
-
     private String firstName;
 
     private String lastName;

@@ -1,17 +1,65 @@
 import { FcGoogle } from "react-icons/fc";
 import "./style.css";
+import { useEffect, useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 
 function Login() {
+    const navigate = useNavigate();
+    const { state } = useLocation();
+    const [showError, setShowError] = useState(false);
+    const [loading, setLoading] = useState(false);
+
+    const response = location.hash || state;
+
+    let accessCode = "";
+
+    const getAccessToken = async () => {
+        if (response) {
+            setLoading(true);
+
+            accessCode = response.split("&")[0].split("#access_token=")[1];
+
+            const res = await fetch(`https://webovci.onrender.com/api/oauth/login?token=${accessCode}`);
+
+            if (res.ok) {
+                const data = await res.json();
+
+                if (data.id) {
+                    navigate(`/${data.id}`);
+                }
+            } else {
+                setShowError(true);
+            }
+            setLoading(false);
+        }
+    };
+
+    useEffect(() => {
+        getAccessToken();
+    }, [location]);
+
     return (
         <>
             <div className="body">
                 <div id="login_form">
                     <h1>You need to log in</h1>
-                    <a href="https://accounts.google.com/o/oauth2/v2/auth?redirect_uri=https://webovci.onrender.com/api/oauth/login&response_type=code&client_id=442466901721-vdd38j9fev4g56mndioe14kchem2cjeu.apps.googleusercontent.com&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+openid&access_type=offline">
-                        <button>
-                            Log in with Google <FcGoogle />
-                        </button>
-                    </a>
+
+                    {loading ? (
+                        <p>Učitavanje ...</p>
+                    ) : (
+                        <a href="https://accounts.google.com/o/oauth2/v2/auth?redirect_uri=https://webovci-1.onrender.com&response_type=token&client_id=860876392172-7ft3es30lvo02gc4dh1b0apcsoa5oijc.apps.googleusercontent.com&scope=https://www.googleapis.com/auth/userinfo.email">
+                            <button>
+                                Log in with Google <FcGoogle />
+                            </button>
+                        </a>
+                        // <a href="https://accounts.google.com/o/oauth2/v2/auth?redirect_uri=http://localhost:5173&response_type=token&client_id=860876392172-7ft3es30lvo02gc4dh1b0apcsoa5oijc.apps.googleusercontent.com&scope=https://www.googleapis.com/auth/userinfo.email">
+                        //     <button>
+                        //         Log in with Google <FcGoogle />
+                        //     </button>
+                        // </a>
+                    )}
+
+                    {showError && <p>Ovaj korisnički račun ne postoji</p>}
                 </div>
             </div>
         </>
