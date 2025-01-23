@@ -24,7 +24,7 @@ public class VotingService {
     private UserVotingRepository userVotingRepository;
 
     public Voting saveVoting(VotingDto votingDto) {
-        Voting votingTest = votingRepository.findByDiscussionId(votingDto.getDiscussionId());
+        Voting votingTest = votingRepository.findBydiscussion(votingDto.getDiscussionId());
 
         if (votingTest != null) {
             throw new IllegalArgumentException("Voting already exists.");

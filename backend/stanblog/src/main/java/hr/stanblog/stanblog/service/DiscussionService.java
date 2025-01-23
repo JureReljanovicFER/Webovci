@@ -55,9 +55,9 @@ public class DiscussionService {
             throw new EntityNotFoundException("Discussion with id " + id + " not found.");
         }
 
-        List<Comment> comments = commentRepository.findAll();
+        List<Comment> comments = commentRepository.findCommentsByDiscussion(discussion);
         List<DiscussionVisibility> discussionVisibilities = discussionVisibilityRepository.findAllByDiscussion(discussion);
-        Voting voting = votingRepository.findByDiscussionId(discussion.getId());
+        Voting voting = votingRepository.findBydiscussion(discussion.getId());
 
         AppUser user = discussion.getCreatorUser();
         ApartmentBuilding apartmentBuilding = discussion.getApartmentBuilding();
@@ -65,7 +65,6 @@ public class DiscussionService {
         UserDto userDto = new UserDto(user.getFirstName(), user.getLastName(), user.getEmail(), user.getUserRole());
 
         ApartmentBuildingDto apartmentBuildingDto = new ApartmentBuildingDto(apartmentBuilding.getId(), apartmentBuilding.getAddress(), apartmentBuilding.getZipCode(), apartmentBuilding.getCity(), apartmentBuilding.getNumberOfIndividualApartments());
-
 
         List<DiscussionVisibilityDto> discussionVisibilityDtos = new ArrayList<>();
         discussionVisibilities.forEach(discussionVisibility -> {
@@ -92,10 +91,9 @@ public class DiscussionService {
         if (voting != null) {
             VotingDto votingDto = new VotingDto(voting.getId(), voting.getTitle(), voting.getPozitiveAnswerLabel(), voting.getNegativeAnswerLabel(), voting.getDiscussion().getId());
             discussionDto = new DiscussionDto(discussion.getId(), userDto, discussion.getTitle(), discussion.getDescription(), apartmentBuildingDto, discussionVisibilityDtos, votingDto, userVotingDtos, commentDtos);
-
+        } else {
+            discussionDto = new DiscussionDto(discussion.getId(), userDto, discussion.getTitle(), discussion.getDescription(), apartmentBuildingDto, discussionVisibilityDtos, null, userVotingDtos, commentDtos);
         }
-
-        discussionDto = new DiscussionDto(discussion.getId(), userDto, discussion.getTitle(), discussion.getDescription(), apartmentBuildingDto, discussionVisibilityDtos, null, userVotingDtos, commentDtos);
 
         return discussionDto;
     }
