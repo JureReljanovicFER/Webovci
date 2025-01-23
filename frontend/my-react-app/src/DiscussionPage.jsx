@@ -17,6 +17,7 @@ export default function DiscussionPage() {
       // console.log("Raw response text:", text);
       const data = (await res.json()).data;
       setData(data);
+      console.log(data);
     } catch (error) {
       console.log("Error fetching data:", error);
     } finally {
@@ -138,6 +139,7 @@ export default function DiscussionPage() {
         throw new Error(response.status);
       }
       const result = await response.json();
+      console.log(result);
       await fetchData();
     } catch (error) {
       alert(`Greška: ${error.message}`);
@@ -160,8 +162,10 @@ export default function DiscussionPage() {
       title: votingTitle,
       pozitiveAnswerLabel: pozitiveAnsLabel,
       negativeAnswerLabel: negativeAnsLabel,
-      discussionId: params.discussionId,
+      discussionId: dissId,
     };
+
+    console.log(votingData);
 
     try {
       const response = await fetch(
@@ -199,10 +203,10 @@ export default function DiscussionPage() {
 
   if (data.userVotngs) {
     totalVotesFor = data.userVotngs.filter(
-      (vote) => vote.answerPositive
+      (vote) => !vote.answerPositive
     ).length;
     totalVotesAgainst = data.userVotngs.filter(
-      (vote) => !vote.answerPositive
+      (vote) => vote.answerPositive
     ).length;
   }
 
@@ -213,7 +217,7 @@ export default function DiscussionPage() {
       <div className="discussion_container">
         <h3 className="discussion_title">Glasanje</h3>
 
-        {data.voting ? (
+        {data.voting != null ? (
           <div className="poll">
             <h4>{data.voting.title}</h4>
             <hr></hr>
@@ -278,6 +282,7 @@ export default function DiscussionPage() {
           <button onClick={addVoting} className="discussion_btn">
             Dodaj glasanje
           </button>
+          <button className="discussion_btn">Započni sastanak</button>
         </div>
       </div>
     </>
