@@ -1,7 +1,7 @@
 # StanBlog 
 
 # Opis projekta
-Ovaj projekt je reultat timskog rada u sklopu projeknog zadatka kolegija [Programsko inženjerstvo](https://www.fer.unizg.hr/predmet/proinz) na Fakultetu elektrotehnike i računarstva Sveučilišta u Zagrebu. 
+Ovaj projekt je rezultat timskog rada u sklopu projeknog zadatka kolegija [Programsko inženjerstvo](https://www.fer.unizg.hr/predmet/proinz) na Fakultetu elektrotehnike i računarstva Sveučilišta u Zagrebu. 
 
 Cilj ovog projekta je izraditi web aplikaciju pod nazivom StanBlog koja će omogućiti lakše komuniciranje i razmjenu informacija među stanarima u određenoj zgradi. Postoje mnoge prednosti stanovanja u dijeljenim stambenim objektima kao što su ušteda vremena i novca, ali često se javljaju problemi kod organiziranja određenih aktivnosti (radovi na stambenim objektima, održavanje i sl.) koje se tiču svih stanara. Aplikacija StanBlog ima za cilj riješiti te probleme i maksimalno olakšati komunikaciju i donošenje zajedničkih odluka u kojima moraju sudjelovati svi članovi pojedinog stambenog objekta.
 
